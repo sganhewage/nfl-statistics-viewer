@@ -7,44 +7,52 @@ public class Player implements Serializable {
     private String Name;
     private String ID;
     private String Team;
-    private String Position;
+    private String POS;
     private int Age;
-    private int Games_Played;
-    private int Games_Started;
-    private int Passing_Completions;
-    private int Passing_Attempts;
-    private int Passing_Yards;
-    private int Passing_Touchdowns;
-    private int Interceptions;
-    private int Rushing_Attempts;
-    private int Rushing_Yards;
-    private double Rushing_Yards_Per_Attempt;
-    private int Rushing_Touchdowns;
-    private int Receiving_Targets;
-    private int Receptions;
-    private int Receiving_Yards;
-    private double Yards_Per_Reception;
-    private int Receiving_Touchdowns;
-    private int Fumbles;
-    private int Fumbles_Lost;
-    private int Total_Touchdowns;
-    private int Position_Rank;
-    private int Overall_Rank;
+    private int GP;
+    private int GS;
+    private int CMP;
+    private int PASS_ATT;
+    private int PASS_YDS;
+    private int PASS_TDS;
+    private int INT;
+    private int RUSH_ATT;
+    private int RUSH_YDS;
+    private double RUSH_YA;
+    private int RUSH_TDS;
+    private int TGT;
+    private int REC;
+    private int REC_YDS;
+    private double REC_YA;
+    private int REC_TDS;
+    private int FUM;
+    private int FUM_LOST;
+    private int TOTAL_TDS;
+    private int POS_RANK;
+    private int OVR_RANK;
 
 
     @Override
     public String toString() {
-        return "Player [Year=" + Year + ", Name=" + Name + ", ID=" + ID + ", Team=" + Team + ", Position=" + Position
-                + ", Age=" + Age + ", Games_Played=" + Games_Played + ", Games_Started=" + Games_Started
-                + ", Passing_Completions=" + Passing_Completions + ", Passing_Attempts=" + Passing_Attempts
-                + ", Passing_Yards=" + Passing_Yards + ", Passing_Touchdowns=" + Passing_Touchdowns + ", Interceptions="
-                + Interceptions + ", Rushing_Attempts=" + Rushing_Attempts + ", Rushing_Yards=" + Rushing_Yards
-                + ", Rushing_Yards_Per_Attempt=" + Rushing_Yards_Per_Attempt + ", Rushing_Touchdowns="
-                + Rushing_Touchdowns + ", Receiving_Targets=" + Receiving_Targets + ", Receptions=" + Receptions
-                + ", Receiving_Yards=" + Receiving_Yards + ", Yards_Per_Reception=" + Yards_Per_Reception
-                + ", Receiving_Touchdowns=" + Receiving_Touchdowns + ", Fumbles=" + Fumbles + ", Fumbles_Lost="
-                + Fumbles_Lost + ", Total_Touchdowns=" + Total_Touchdowns + ", Position_Rank=" + Position_Rank
-                + ", Overall_Rank=" + Overall_Rank + "]";
+        return "Player [Year=" + Year + ", Name=" + Name + ", ID=" + ID + ", Team=" + Team + ", Position=" + POS
+                + ", Age=" + Age + ", Games_Played=" + GP + ", Games_Started=" + GS
+                + ", Passing_Completions=" + CMP + ", Passing_Attempts=" + PASS_ATT
+                + ", Passing_Yards=" + PASS_YDS + ", Passing_Touchdowns=" + PASS_TDS + ", Interceptions="
+                + INT + ", Rushing_Attempts=" + RUSH_ATT + ", Rushing_Yards=" + RUSH_YDS
+                + ", Rushing_Yards_Per_Attempt=" + RUSH_YA + ", Rushing_Touchdowns="
+                + RUSH_TDS + ", Receiving_Targets=" + TGT + ", Receptions=" + REC
+                + ", Receiving_Yards=" + REC_YDS + ", Yards_Per_Reception=" + REC_YA
+                + ", Receiving_Touchdowns=" + REC_TDS + ", Fumbles=" + FUM + ", Fumbles_Lost="
+                + FUM_LOST + ", Total_Touchdowns=" + TOTAL_TDS + ", Position_Rank=" + POS_RANK
+                + ", Overall_Rank=" + OVR_RANK + "]";
+    }
+
+    public static String[] getAttributes() {
+        return new String[]{
+                "Year", "Name", "Team", "POS", "Age", "OVR_RANK", "POS_RANK", "GP", "GS", "CMP", "PASS_ATT",
+                "PASS_YDS", "PASS_TDS", "INT", "RUSH_ATT", "RUSH_YDS", "RUSH_YA", "RUSH_TDS",
+                "TGT", "REC", "REC_YDS", "REC_YA", "REC_TDS", "FUM", "FUM_LOST", "TOTAL_TDS"
+        };
     }
 
     public static String[] getAttributeNames() {
@@ -58,34 +66,45 @@ public class Player implements Serializable {
         };
     }
 
+    public static String[] getAttributeType() {
+        return new String[]{
+                "int", "String", "String", "String", "int","int","int", "int", "int",
+                "int", "int", "int", "int",
+                "int", "int", "int", "double",
+                "int", "int", "int", "int",
+                "double", "int", "int", "int",
+                "int"
+        };
+    }
+
     public String[] attributesToStringList() {
         return new String[]{
                 String.valueOf(Year),
                 Name,
                 Team,
-                Position,
+                POS,
                 String.valueOf(Age),
-                String.valueOf(Overall_Rank),
-                String.valueOf(Position_Rank),
-                String.valueOf(Games_Played),
-                String.valueOf(Games_Started),
-                String.valueOf(Passing_Completions),
-                String.valueOf(Passing_Attempts),
-                String.valueOf(Passing_Yards),
-                String.valueOf(Passing_Touchdowns),
-                String.valueOf(Interceptions),
-                String.valueOf(Rushing_Attempts),
-                String.valueOf(Rushing_Yards),
-                String.valueOf(Rushing_Yards_Per_Attempt),
-                String.valueOf(Rushing_Touchdowns),
-                String.valueOf(Receiving_Targets),
-                String.valueOf(Receptions),
-                String.valueOf(Receiving_Yards),
-                String.valueOf(Yards_Per_Reception),
-                String.valueOf(Receiving_Touchdowns),
-                String.valueOf(Fumbles),
-                String.valueOf(Fumbles_Lost),
-                String.valueOf(Total_Touchdowns),
+                String.valueOf(OVR_RANK),
+                String.valueOf(POS_RANK),
+                String.valueOf(GP),
+                String.valueOf(GS),
+                String.valueOf(CMP),
+                String.valueOf(PASS_ATT),
+                String.valueOf(PASS_YDS),
+                String.valueOf(PASS_TDS),
+                String.valueOf(INT),
+                String.valueOf(RUSH_ATT),
+                String.valueOf(RUSH_YDS),
+                String.valueOf(RUSH_YA),
+                String.valueOf(RUSH_TDS),
+                String.valueOf(TGT),
+                String.valueOf(REC),
+                String.valueOf(REC_YDS),
+                String.valueOf(REC_YA),
+                String.valueOf(REC_TDS),
+                String.valueOf(FUM),
+                String.valueOf(FUM_LOST),
+                String.valueOf(TOTAL_TDS),
         };
     }
 
@@ -109,11 +128,11 @@ public class Player implements Serializable {
     public void setTeam(String team) {
         Team = team;
     }
-    public String getPosition() {
-        return Position;
+    public String getPOS() {
+        return POS;
     }
-    public void setPosition(String position) {
-        Position = position;
+    public void setPOS(String position) {
+        POS = position;
     }
     public int getAge() {
         return Age;
@@ -121,131 +140,131 @@ public class Player implements Serializable {
     public void setAge(int age) {
         Age = age;
     }
-    public int getGames_Played() {
-        return Games_Played;
+    public int getGP() {
+        return GP;
     }
-    public void setGames_Played(int games_Played) {
-        Games_Played = games_Played;
+    public void setGP(int games_Played) {
+        GP = games_Played;
     }
-    public int getGames_Started() {
-        return Games_Started;
+    public int getGS() {
+        return GS;
     }
-    public void setGames_Started(int games_Started) {
-        Games_Started = games_Started;
+    public void setGS(int games_Started) {
+        GS = games_Started;
     }
-    public int getPassing_Completions() {
-        return Passing_Completions;
+    public int getCMP() {
+        return CMP;
     }
-    public void setPassing_Completions(int passing_Completions) {
-        Passing_Completions = passing_Completions;
+    public void setCMP(int passing_Completions) {
+        CMP = passing_Completions;
     }
-    public int getPassing_Attempts() {
-        return Passing_Attempts;
+    public int getPASS_ATT() {
+        return PASS_ATT;
     }
-    public void setPassing_Attempts(int passing_Attempts) {
-        Passing_Attempts = passing_Attempts;
+    public void setPASS_ATT(int passing_Attempts) {
+        PASS_ATT = passing_Attempts;
     }
-    public int getPassing_Yards() {
-        return Passing_Yards;
+    public int getPASS_YDS() {
+        return PASS_YDS;
     }
-    public void setPassing_Yards(int passing_Yards) {
-        Passing_Yards = passing_Yards;
+    public void setPASS_YDS(int passing_Yards) {
+        PASS_YDS = passing_Yards;
     }
-    public int getPassing_Touchdowns() {
-        return Passing_Touchdowns;
+    public int getPASS_TDS() {
+        return PASS_TDS;
     }
-    public void setPassing_Touchdowns(int passing_Touchdowns) {
-        Passing_Touchdowns = passing_Touchdowns;
+    public void setPASS_TDS(int passing_Touchdowns) {
+        PASS_TDS = passing_Touchdowns;
     }
-    public int getInterceptions() {
-        return Interceptions;
+    public int getINT() {
+        return INT;
     }
-    public void setInterceptions(int interceptions) {
-        Interceptions = interceptions;
+    public void setINT(int interceptions) {
+        INT = interceptions;
     }
-    public int getRushing_Attempts() {
-        return Rushing_Attempts;
+    public int getRUSH_ATT() {
+        return RUSH_ATT;
     }
-    public void setRushing_Attempts(int rushing_Attempts) {
-        Rushing_Attempts = rushing_Attempts;
+    public void setRUSH_ATT(int rushing_Attempts) {
+        RUSH_ATT = rushing_Attempts;
     }
-    public int getRushing_Yards() {
-        return Rushing_Yards;
+    public int getRUSH_YDS() {
+        return RUSH_YDS;
     }
-    public void setRushing_Yards(int rushing_Yards) {
-        Rushing_Yards = rushing_Yards;
+    public void setRUSH_YDS(int rushing_Yards) {
+        RUSH_YDS = rushing_Yards;
     }
-    public double getRushing_Yards_Per_Attempt() {
-        return Rushing_Yards_Per_Attempt;
+    public double getRUSH_YA() {
+        return RUSH_YA;
     }
-    public void setRushing_Yards_Per_Attempt(double rushing_Yards_Per_Attempt) {
-        Rushing_Yards_Per_Attempt = rushing_Yards_Per_Attempt;
+    public void setRUSH_YA(double rushing_Yards_Per_Attempt) {
+        RUSH_YA = rushing_Yards_Per_Attempt;
     }
-    public int getRushing_Touchdowns() {
-        return Rushing_Touchdowns;
+    public int getRUSH_TDS() {
+        return RUSH_TDS;
     }
-    public void setRushing_Touchdowns(int rushing_Touchdowns) {
-        Rushing_Touchdowns = rushing_Touchdowns;
+    public void setRUSH_TDS(int rushing_Touchdowns) {
+        RUSH_TDS = rushing_Touchdowns;
     }
-    public int getReceiving_Targets() {
-        return Receiving_Targets;
+    public int getTGT() {
+        return TGT;
     }
-    public void setReceiving_Targets(int receiving_Targets) {
-        Receiving_Targets = receiving_Targets;
+    public void setTGT(int receiving_Targets) {
+        TGT = receiving_Targets;
     }
-    public int getReceiving_Yards() {
-        return Receiving_Yards;
+    public int getREC_YDS() {
+        return REC_YDS;
     }
-    public void setReceiving_Yards(int receiving_Yards) {
-        Receiving_Yards = receiving_Yards;
+    public void setREC_YDS(int receiving_Yards) {
+        REC_YDS = receiving_Yards;
     }
-    public double getYards_Per_Reception() {
-        return Yards_Per_Reception;
+    public double getREC_YA() {
+        return REC_YA;
     }
-    public void setYards_Per_Reception(double yards_Per_Reception) {
-        Yards_Per_Reception = yards_Per_Reception;
+    public void setREC_YA(double yards_Per_Reception) {
+        REC_YA = yards_Per_Reception;
     }
-    public int getReceiving_Touchdowns() {
-        return Receiving_Touchdowns;
+    public int getREC_TDS() {
+        return REC_TDS;
     }
-    public void setReceiving_Touchdowns(int receiving_Touchdowns) {
-        Receiving_Touchdowns = receiving_Touchdowns;
+    public void setREC_TDS(int receiving_Touchdowns) {
+        REC_TDS = receiving_Touchdowns;
     }
-    public int getFumbles() {
-        return Fumbles;
+    public int getFUM() {
+        return FUM;
     }
-    public void setFumbles(int fumbles) {
-        Fumbles = fumbles;
+    public void setFUM(int fumbles) {
+        FUM = fumbles;
     }
-    public int getFumbles_Lost() {
-        return Fumbles_Lost;
+    public int getFUM_LOST() {
+        return FUM_LOST;
     }
-    public void setFumbles_Lost(int fumbles_Lost) {
-        Fumbles_Lost = fumbles_Lost;
+    public void setFUM_LOST(int fumbles_Lost) {
+        FUM_LOST = fumbles_Lost;
     }
-    public int getTotal_Touchdowns() {
-        return Total_Touchdowns;
+    public int getTOTAL_TDS() {
+        return TOTAL_TDS;
     }
-    public void setTotal_Touchdowns(int total_Touchdowns) {
-        Total_Touchdowns = total_Touchdowns;
+    public void setTOTAL_TDS(int total_Touchdowns) {
+        TOTAL_TDS = total_Touchdowns;
     }
-    public int getPosition_Rank() {
-        return Position_Rank;
+    public int getPOS_RANK() {
+        return POS_RANK;
     }
-    public void setPosition_Rank(int position_Rank) {
-        Position_Rank = position_Rank;
+    public void setPOS_RANK(int position_Rank) {
+        POS_RANK = position_Rank;
     }
-    public int getOverall_Rank() {
-        return Overall_Rank;
+    public int getOVR_RANK() {
+        return OVR_RANK;
     }
-    public void setOverall_Rank(int overall_Rank) {
-        Overall_Rank = overall_Rank;
+    public void setOVR_RANK(int overall_Rank) {
+        OVR_RANK = overall_Rank;
     }
-    public int getReceptions() {
-        return Receptions;
+    public int getREC() {
+        return REC;
     }
-    public void setReceptions(int receptions) {
-        Receptions = receptions;
+    public void setREC(int receptions) {
+        REC = receptions;
     }
     public String getID() {
         return ID;

@@ -42,7 +42,7 @@
                   <Insets bottom="60.0" left="60.0" right="60.0" top="30.0" />
                </HBox.margin>
                <children>
-                  <Button fx:id="choice1" mnemonicParsing="false" prefHeight="124.0" prefWidth="678.0" text="Season Statisics">
+                  <Button fx:id="choice1" mnemonicParsing="false" onAction="#switchToSeasonStats" prefHeight="124.0" prefWidth="678.0" text="Season Statisics">
                      <font>
                         <Font name="Sinhala MN Bold" size="44.0" />
                      </font>

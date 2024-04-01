@@ -45,7 +45,9 @@ public class WebScrape{
     }
 
     static ArrayList<Player> careerTotals(int startYear, int endYear) throws IOException {
-        List<Integer> yearsArray = IntStream.rangeClosed(startYear, endYear).boxed().toList();
+        //create an array of years to search
+        int[] yearsArray = IntStream.rangeClosed(startYear, endYear).toArray();
+        
         Random rand = new Random();
         Boolean delay = false;
 
@@ -110,25 +112,25 @@ public class WebScrape{
                 
                 Player p = careerList.get(index);
 
-                p.setGames_Played(p.getGames_Played()+player.getGames_Played());
-                p.setGames_Started(p.getGames_Started()+player.getGames_Started());
-                p.setPassing_Attempts(p.getPassing_Attempts()+player.getPassing_Attempts());
-                p.setPassing_Completions(p.getPassing_Completions()+player.getPassing_Completions());
-                p.setPassing_Yards(p.getPassing_Yards()+player.getPassing_Yards());
-                p.setPassing_Touchdowns(p.getPassing_Touchdowns()+player.getPassing_Touchdowns());
-                p.setInterceptions(p.getInterceptions()+player.getInterceptions());
-                p.setRushing_Attempts(p.getRushing_Attempts()+player.getRushing_Attempts());
-                p.setRushing_Yards(p.getRushing_Yards()+player.getRushing_Yards());
-                try {p.setRushing_Yards_Per_Attempt(p.getRushing_Yards()/p.getRushing_Attempts());} catch (Exception e) {p.setRushing_Yards_Per_Attempt(0);}
-                p.setRushing_Touchdowns(p.getRushing_Touchdowns()+player.getRushing_Touchdowns());
-                p.setReceiving_Targets(p.getReceiving_Targets()+player.getReceiving_Targets());
-                p.setReceptions(p.getReceptions()+player.getReceptions());
-                p.setReceiving_Yards(p.getReceiving_Yards()+player.getReceiving_Yards());
-                try {p.setYards_Per_Reception(p.getReceiving_Yards()/p.getReceptions());} catch (Exception e) {p.setYards_Per_Reception(0);}
-                p.setReceiving_Touchdowns(p.getReceiving_Touchdowns()+player.getReceiving_Touchdowns());
-                p.setFumbles(p.getFumbles()+player.getFumbles());
-                p.setFumbles_Lost(p.getFumbles_Lost()+player.getFumbles_Lost());
-                p.setTotal_Touchdowns(p.getTotal_Touchdowns()+player.getTotal_Touchdowns());
+                p.setGP(p.getGP()+player.getGP());
+                p.setGS(p.getGS()+player.getGS());
+                p.setPASS_ATT(p.getPASS_ATT()+player.getPASS_ATT());
+                p.setCMP(p.getCMP()+player.getCMP());
+                p.setPASS_YDS(p.getPASS_YDS()+player.getPASS_YDS());
+                p.setPASS_TDS(p.getPASS_TDS()+player.getPASS_TDS());
+                p.setINT(p.getINT()+player.getINT());
+                p.setRUSH_ATT(p.getRUSH_ATT()+player.getRUSH_ATT());
+                p.setRUSH_YDS(p.getRUSH_YDS()+player.getRUSH_YDS());
+                try {p.setRUSH_YA(p.getRUSH_YDS()/p.getRUSH_ATT());} catch (Exception e) {p.setRUSH_YA(0);}
+                p.setRUSH_TDS(p.getRUSH_TDS()+player.getRUSH_TDS());
+                p.setTGT(p.getTGT()+player.getTGT());
+                p.setREC(p.getREC()+player.getREC());
+                p.setREC_YDS(p.getREC_YDS()+player.getREC_YDS());
+                try {p.setREC_YA(p.getREC_YDS()/p.getREC());} catch (Exception e) {p.setREC_YA(0);}
+                p.setREC_TDS(p.getREC_TDS()+player.getREC_TDS());
+                p.setFUM(p.getFUM()+player.getFUM());
+                p.setFUM_LOST(p.getFUM_LOST()+player.getFUM_LOST());
+                p.setTOTAL_TDS(p.getTOTAL_TDS()+player.getTOTAL_TDS());
                 p.setTeam(player.getTeam());
                 p.setAge(player.getAge());
 
@@ -358,29 +360,29 @@ public class WebScrape{
                         p.setName(playerNames.get(playerIndex));
                         p.setID(playerID.get(playerIndex));
                         p.setTeam(playerTeams.get(playerIndex));
-                        p.setPosition(positions.get(playerIndex));
+                        p.setPOS(positions.get(playerIndex));
                         p.setAge(ages.get(playerIndex));
-                        p.setGames_Played(GP.get(playerIndex));
-                        p.setGames_Started(G.get(playerIndex));
-                        p.setPassing_Attempts(pass_att.get(playerIndex));
-                        p.setPassing_Completions(pass_cmp.get(playerIndex));
-                        p.setPassing_Yards(pass_yds.get(playerIndex));
-                        p.setPassing_Touchdowns(pass_tds.get(playerIndex));
-                        p.setInterceptions(ints.get(playerIndex));
-                        p.setRushing_Attempts(rush_att.get(playerIndex));
-                        p.setRushing_Yards(rush_yds.get(playerIndex));
-                        p.setRushing_Yards_Per_Attempt(rush_ya.get(playerIndex));
-                        p.setRushing_Touchdowns(rush_tds.get(playerIndex));
-                        p.setReceiving_Targets(rec_tgts.get(playerIndex));
-                        p.setReceptions(rec.get(playerIndex));
-                        p.setReceiving_Yards(rec_yds.get(playerIndex));
-                        p.setYards_Per_Reception(rec_yr.get(playerIndex));
-                        p.setReceiving_Touchdowns(rec_tds.get(playerIndex));
-                        p.setFumbles(fum.get(playerIndex));
-                        p.setFumbles_Lost(FL.get(playerIndex));
-                        p.setPosition_Rank(pos_rank.get(playerIndex));
-                        p.setTotal_Touchdowns(total_tds.get(playerIndex));
-                        p.setOverall_Rank(ovr_rank.get(playerIndex));
+                        p.setGP(GP.get(playerIndex));
+                        p.setGS(G.get(playerIndex));
+                        p.setPASS_ATT(pass_att.get(playerIndex));
+                        p.setCMP(pass_cmp.get(playerIndex));
+                        p.setPASS_YDS(pass_yds.get(playerIndex));
+                        p.setPASS_TDS(pass_tds.get(playerIndex));
+                        p.setINT(ints.get(playerIndex));
+                        p.setRUSH_ATT(rush_att.get(playerIndex));
+                        p.setRUSH_YDS(rush_yds.get(playerIndex));
+                        p.setRUSH_YA(rush_ya.get(playerIndex));
+                        p.setRUSH_TDS(rush_tds.get(playerIndex));
+                        p.setTGT(rec_tgts.get(playerIndex));
+                        p.setREC(rec.get(playerIndex));
+                        p.setREC_YDS(rec_yds.get(playerIndex));
+                        p.setREC_YA(rec_yr.get(playerIndex));
+                        p.setREC_TDS(rec_tds.get(playerIndex));
+                        p.setFUM(fum.get(playerIndex));
+                        p.setFUM_LOST(FL.get(playerIndex));
+                        p.setPOS_RANK(pos_rank.get(playerIndex));
+                        p.setTOTAL_TDS(total_tds.get(playerIndex));
+                        p.setOVR_RANK(ovr_rank.get(playerIndex));
 
                         players.add(p);
                         playerIndex += 1;

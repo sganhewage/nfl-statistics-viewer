@@ -57,6 +57,24 @@ public class HomePageController {
     }
 
     @FXML
+    private void switchToSeasonStats() throws IOException {
+        fadeOut();
+
+        new Thread() {
+            public void run() {
+                try {
+                    Thread.sleep(fadeTime);
+                    App.setRoot("seasonStatsPage");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+    }
+
+    @FXML
     private void initialize() {
         fadeIn();
     }
