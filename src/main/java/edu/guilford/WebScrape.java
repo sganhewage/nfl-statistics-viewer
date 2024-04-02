@@ -208,7 +208,12 @@ public class WebScrape{
         return yearList;
     }
 
+    @SuppressWarnings("unchecked")
     static ArrayList<Player> createPlayerList(int year) throws IOException {
+        if (!getValidYears().contains(year)) {
+            throw new InvalidYearException("Invalid Year. Select a year between " + getValidYears().get(0) + " and " + getValidYears().get(getValidYears().size()-1) + ".");
+        }
+
         ArrayList<Player> players = new ArrayList<Player>();
         ArrayList<Player> filePlayers = new ArrayList<Player>();
 
@@ -221,13 +226,16 @@ public class WebScrape{
                 FileInputStream readData = new FileInputStream(yearListFileLoc);
                 ObjectInputStream readStream = new ObjectInputStream(readData);
                 LocalDateTime fileDate = (LocalDateTime) readStream.readObject();
+                
                 filePlayers = (ArrayList<Player>) readStream.readObject();
+                System.out.println(filePlayers.size());
                 long hoursElapsed = fileDate.until(LocalDateTime.now(), ChronoUnit.HOURS);
                 //System.out.println(hoursElapsed);
                 if (hoursElapsed <= 5) {
                     //System.out.println("pulled from files");
                     players = filePlayers;
                     createNewList = false;
+                    System.out.println("pulled from files");
                 }
                 readStream.close();
             }
@@ -457,6 +465,13 @@ public class WebScrape{
         teamAbbreviations.put("2TM", "2 Different Teams");
         teamAbbreviations.put("3TM", "3 Different Teams");
         teamAbbreviations.put("4TM", "4 Different Teams");
+    }
+
+    // create an exception class
+    public static class InvalidYearException extends RuntimeException {
+        public InvalidYearException(String message) {
+            super(message);
+        }
     }
 }  
 

@@ -3,9 +3,6 @@ package edu.guilford;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.jsoup.nodes.CDataNode;
-
-import javafx.scene.control.ContextMenu;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -14,16 +11,27 @@ public class PlayerTable extends TableView<Player> {
     private ArrayList<Player> players;
     private String[] columnNames = Player.getAttributes();
     private String[] attributeTypes = Player.getAttributeType();
+    public static int initYear = 2023;
 
     public PlayerTable() throws IOException {
         super();
-        this.players = WebScrape.createPlayerList(2000);
+        this.players = WebScrape.createPlayerList(initYear);
         setTable();
     }
 
-    private void setTable() {
+    public PlayerTable(ArrayList<Player> players) {
+        super();
+        this.players = players;
+        setTable();
+    }
+
+    public void setTable() {
         setColumns();
         setPlayerData();
+    }
+
+    public void setPlayerList(ArrayList<Player> players) {
+        this.players = players;
     }
 
     private void setColumns() {
