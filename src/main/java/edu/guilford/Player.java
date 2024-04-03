@@ -77,6 +77,33 @@ public class Player implements Serializable {
         };
     }
 
+    public static String[] getRangeAttributes() {
+        return new String[]{
+                "Name", "Team", "POS", "Age", "GP", "GS", "CMP", "PASS_ATT",
+                "PASS_YDS", "PASS_TDS", "INT", "RUSH_ATT", "RUSH_YDS", "RUSH_YA", "RUSH_TDS",
+                "TGT", "REC", "REC_YDS", "REC_YA", "REC_TDS", "FUM", "FUM_LOST", "TOTAL_TDS"
+        };
+    }
+
+    public static String[] getRangeAttributeType() {
+        return new String[]{
+                "String", "String", "String", "int", "int", "int", "int", "int",
+                "int", "int", "int", "int", "int", "double", "int",
+                "int", "int", "int", "double", "int", "int", "int", "int"
+        };
+    }
+
+    public static String[] getRangeAttributeNames() {
+        return new String[]{
+                "Name", "Team", "Position", "Age", "Games Played", "Games Started",
+                "Passing Completions", "Passing Attempts", "Passing Yards", "Passing Touchdowns",
+                "Interceptions", "Rushing Attempts", "Rushing Yards", "Rushing Yards Per Attempt",
+                "Rushing Touchdowns", "Receiving Targets", "Receptions", "Receiving Yards",
+                "Yards Per Reception", "Receiving Touchdowns", "Fumbles", "Fumbles Lost",
+                "Total Touchdowns"
+        };
+    }
+
     public String[] attributesToStringList() {
         return new String[]{
                 String.valueOf(Year),

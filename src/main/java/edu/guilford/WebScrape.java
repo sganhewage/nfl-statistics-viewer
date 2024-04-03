@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
@@ -24,6 +25,8 @@ import org.jsoup.Connection.Response;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.*;
+
+import javafx.scene.image.Image;
 
 
 
@@ -146,14 +149,15 @@ public class WebScrape{
         return careerList;
     }
 
-    static ImageIcon playerProfileImage(String playerCode) throws IOException {
+    static Image playerProfileImage(String playerCode) throws IOException {
         String imgFilePath = "src/main/java/edu/guilford/PlayerImages/"+playerCode+".jpeg";
         File tempDirectory = new File(imgFilePath);
-        ImageIcon img = new ImageIcon("src/main/java/edu/guilford/imageUnavailable.png");
+
+        Image img = new Image(App.class.getResourceAsStream("imageUnavailable.png"));
 
         if (tempDirectory.exists()) {
-            img = new ImageIcon(imgFilePath);
             System.out.println("Player pulled from files");
+            img = new Image(new FileInputStream(imgFilePath));
         } else {
             try {
                 String url = "https://www.pro-football-reference.com/players/"+playerCode.charAt(0)+"/"+playerCode+".htm";
@@ -176,12 +180,12 @@ public class WebScrape{
                     out.write(resultImageResponse.bodyAsBytes());  // resultImageResponse.body() is where the image's contents are.
                     out.close();
 
-                    img = new ImageIcon(imgFilePath);
+                    img = new Image(new FileInputStream(imgFilePath));
                     System.out.println("Pulling Image from Website...");
                 }
                 }   
             } catch (HttpStatusException e) {
-                img = new ImageIcon("finalproject/src/main/java/edu/guilford/imageUnavailable.png");
+                img = new Image("finalproject/src/main/java/edu/guilford/imageUnavailable.png");
                 System.out.println("Image Unavailable (429 Status Error)");
             }    
         } 
@@ -250,7 +254,7 @@ public class WebScrape{
                     
                     //Initializes Hashmap to convert team abbreivations to full team names
                     HashMap<String, String> teamAbbreviations = new HashMap<>();
-                    initializeTeamAbbreviations(teamAbbreviations);
+                    teamAbbreviationtoName(teamAbbreviations);
 
                     //Creates list of Player Names
                     ArrayList<String> playerNames = new ArrayList<String>(); 
@@ -426,7 +430,7 @@ public class WebScrape{
     }
     
     //Hashmap to convert between team names and abbreviations
-    private static void initializeTeamAbbreviations(HashMap<String, String> teamAbbreviations) {
+    public static void teamAbbreviationtoName(HashMap<String, String> teamAbbreviations) {
         teamAbbreviations.put("ARI", "Arizona Cardinals");
         teamAbbreviations.put("ATL", "Atlanta Falcons");
         teamAbbreviations.put("BAL", "Baltimore Ravens");
@@ -465,6 +469,48 @@ public class WebScrape{
         teamAbbreviations.put("2TM", "2 Different Teams");
         teamAbbreviations.put("3TM", "3 Different Teams");
         teamAbbreviations.put("4TM", "4 Different Teams");
+    }
+
+    // create a reverse hashmap to convert between team names and abbreviations
+    public static void teamNametoAbbreviation(HashMap<String, String> teamAbbreviations) {
+        teamAbbreviations.put("Arizona Cardinals", "ARI");
+        teamAbbreviations.put("Atlanta Falcons", "ATL");
+        teamAbbreviations.put("Baltimore Ravens", "BAL");
+        teamAbbreviations.put("Buffalo Bills", "BUF");
+        teamAbbreviations.put("Carolina Panthers", "CAR");
+        teamAbbreviations.put("Chicago Bears", "CHI");
+        teamAbbreviations.put("Cincinnati Bengals", "CIN");
+        teamAbbreviations.put("Cleveland Browns", "CLE");
+        teamAbbreviations.put("Dallas Cowboys", "DAL");
+        teamAbbreviations.put("Denver Broncos", "DEN");
+        teamAbbreviations.put("Detroit Lions", "DET");
+        teamAbbreviations.put("Green Bay Packers", "GNB");
+        teamAbbreviations.put("Houston Texans", "HOU");
+        teamAbbreviations.put("Indianapolis Colts", "IND");
+        teamAbbreviations.put("Jacksonville Jaguars", "JAX");
+        teamAbbreviations.put("Kansas City Chiefs", "KAN");
+        teamAbbreviations.put("Los Angeles Chargers", "LAC");
+        teamAbbreviations.put("Los Angeles Rams", "LAR");
+        teamAbbreviations.put("Miami Dolphins", "MIA");
+        teamAbbreviations.put("Minnesota Vikings", "MIN");
+        teamAbbreviations.put("New England Patriots", "NWE");
+        teamAbbreviations.put("New Orleans Saints", "NOR");
+        teamAbbreviations.put("New York Giants", "NYG");
+        teamAbbreviations.put("New York Jets", "NYJ");
+        teamAbbreviations.put("Las Vegas Raiders", "LVR");
+        teamAbbreviations.put("Philadelphia Eagles", "PHI");
+        teamAbbreviations.put("Pittsburgh Steelers", "PIT");
+        teamAbbreviations.put("San Francisco 49ers", "SFO");
+        teamAbbreviations.put("Seattle Seahawks", "SEA");
+        teamAbbreviations.put("Tampa Bay Buccaneers", "TAM");
+        teamAbbreviations.put("Tennessee Titans", "TEN");
+        teamAbbreviations.put("Washington Football Team", "WAS");
+        teamAbbreviations.put("St. Louis Rams", "STL");
+        teamAbbreviations.put("Oakland Raiders", "OAK");
+        teamAbbreviations.put("San Diego Chargers", "SDG");
+        teamAbbreviations.put("2 Different Teams", "2TM");
+        teamAbbreviations.put("3 Different Teams", "3TM");
+        teamAbbreviations.put("4 Different Teams", "4TM");
     }
 
     // create an exception class

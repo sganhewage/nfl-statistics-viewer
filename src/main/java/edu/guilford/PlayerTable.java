@@ -9,19 +9,29 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class PlayerTable extends TableView<Player> {
     private ArrayList<Player> players;
-    private String[] columnNames = Player.getAttributes();
-    private String[] attributeTypes = Player.getAttributeType();
+    private String[] columnNames;
+    private String[] attributeTypes;
     public static int initYear = 2023;
 
     public PlayerTable() throws IOException {
         super();
         this.players = WebScrape.createPlayerList(initYear);
+
+        columnNames = Player.getAttributes();
+        attributeTypes = Player.getAttributeType();
         setTable();
     }
-
-    public PlayerTable(ArrayList<Player> players) {
+    
+    public PlayerTable(ArrayList<Player> players, boolean isRange) {
         super();
         this.players = players;
+        if (isRange) {
+            columnNames = Player.getRangeAttributes();
+            attributeTypes = Player.getRangeAttributeType();
+        } else {
+            columnNames = Player.getAttributes();
+            attributeTypes = Player.getAttributeType();
+        }
         setTable();
     }
 
@@ -56,7 +66,6 @@ public class PlayerTable extends TableView<Player> {
             }
         }
     }
-
     // grab each relevant player attribute and add it to the table under the correct column
     public void setPlayerData() {
         for (Player player : players) {
