@@ -487,6 +487,7 @@ public class WebScrape {
         teamAbbreviations.put("TAM", "Tampa Bay Buccaneers");
         teamAbbreviations.put("TEN", "Tennessee Titans");
         teamAbbreviations.put("WAS", "Washington Football Team");
+        teamAbbreviations.put("WAC", "Washington Commanders");
         teamAbbreviations.put("STL", "St. Louis Rams");
         teamAbbreviations.put("OAK", "Oakland Raiders");
         teamAbbreviations.put("SDG", "San Diego Chargers");
@@ -529,6 +530,7 @@ public class WebScrape {
         teamAbbreviations.put("Tampa Bay Buccaneers", "TAM");
         teamAbbreviations.put("Tennessee Titans", "TEN");
         teamAbbreviations.put("Washington Football Team", "WAS");
+        teamAbbreviations.put("Washington Commanders", "WAC");
         teamAbbreviations.put("St. Louis Rams", "STL");
         teamAbbreviations.put("Oakland Raiders", "OAK");
         teamAbbreviations.put("San Diego Chargers", "SDG");
