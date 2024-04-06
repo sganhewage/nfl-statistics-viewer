@@ -31,9 +31,9 @@ import javafx.scene.image.Image;
 
 
 
-public class WebScrape{
-
-    static int fileRefreshTime = 5; //hours
+public class WebScrape {
+    final static int FILE_REFRESH_TIME = 5; //hours
+    final static boolean UPDATE_OLD_LISTS = false;
 
     static ArrayList<Player> nameSearch(ArrayList<Player> playerList, String input) throws IOException {
         ArrayList<Player> searchResults = new ArrayList<Player>();
@@ -47,6 +47,7 @@ public class WebScrape{
         return searchResults;
     }
 
+    @SuppressWarnings("unused")
     static ArrayList<Player> careerTotals(int startYear, int endYear) throws IOException {
         //create an array of years to search
         int[] yearsArray = IntStream.rangeClosed(startYear, endYear).toArray();
@@ -54,62 +55,74 @@ public class WebScrape{
         Random rand = new Random();
         Boolean delay = false;
 
-        int refreshFileQuant = 0;
-        for (int year : yearsArray) {
-            String yearListFileLoc = "src/main/java/edu/guilford/yearLists/"+year+"List.ser";
-            File tmpDir = new File(yearListFileLoc);
-            
-            if (tmpDir.exists()) {
-                FileInputStream readData = new FileInputStream(yearListFileLoc);
-                ObjectInputStream readStream = new ObjectInputStream(readData);
-                LocalDateTime fileDate;
-                long hoursElapsed = 0;
-                try {
-                    fileDate = (LocalDateTime) readStream.readObject();
-                    hoursElapsed = fileDate.until(LocalDateTime.now(), ChronoUnit.HOURS);
-                } catch (ClassNotFoundException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-                readStream.close();
+        if (UPDATE_OLD_LISTS) {
+            int refreshFileQuant = 0;
+            for (int year : yearsArray) {
+                String yearListFileLoc = App.class.getResource("yearLists/").getPath();
+                yearListFileLoc = yearListFileLoc + year + "List.ser";
+                File tmpDir = new File(yearListFileLoc);
                 
-                //System.out.println(hoursElapsed);
-                if (hoursElapsed >= fileRefreshTime) {
-                    refreshFileQuant++;
-                }
-            }    
+                if (tmpDir.exists()) {
+                    FileInputStream readData = new FileInputStream(yearListFileLoc);
+                    ObjectInputStream readStream = new ObjectInputStream(readData);
+                    LocalDateTime fileDate;
+                    long hoursElapsed = 0;
+                    try {
+                        fileDate = (LocalDateTime) readStream.readObject();
+                        hoursElapsed = fileDate.until(LocalDateTime.now(), ChronoUnit.HOURS);
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    readStream.close();
+                    
+                    //System.out.println(hoursElapsed);
+                    if (hoursElapsed >= FILE_REFRESH_TIME) {
+                        refreshFileQuant++;
+                    }
+                }    
+            }
+            if (refreshFileQuant > 3) {
+                delay = true;   
+            }
+        } else {
+            delay = false;
         }
-        if (refreshFileQuant > 3) {
-            delay = true;   
-        }
+        final boolean finalDelay = delay;
+
         //System.out.println(yearsArray);
         ArrayList<Player> careerList = new ArrayList<Player>();
         ArrayList<String> IDList = new ArrayList<String>();
         ArrayList<Player> yearList = new ArrayList<Player>(); 
+
         for (int year : yearsArray) {
-            for (Player person : createPlayerList(year)) {
-                yearList.add(person);
+            try {
+                for (Player person : createPlayerList(year)) {
+                    yearList.add(person);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            if (delay) {
+            if (finalDelay) {
                 try {
                     Thread.sleep(500+rand.nextInt(200));
+                    System.out.println("delayed");
                 } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    //e.printStackTrace();
+                    e.printStackTrace();
                 }
             }
         }
             
-            for (Player player : yearList) {
-                String ID = new String(player.getID());
-                Boolean IDmatch = false;
-                int index = 0;
-                for (String id : IDList) {
-                    if (id.contains(ID)) {
-                        IDmatch = true;
-                        index = IDList.indexOf(id);
-                    }
-                } 
+        for (Player player : yearList) {
+            String ID = new String(player.getID());
+            Boolean IDmatch = false;
+            int index = 0;
+            for (String id : IDList) {
+                if (id.contains(ID)) {
+                    IDmatch = true;
+                    index = IDList.indexOf(id);
+                }
+            } 
+
             if (IDmatch) {
                 //System.out.println("repeat player " + ID);
                 
@@ -150,9 +163,9 @@ public class WebScrape{
     }
 
     static Image playerProfileImage(String playerCode) throws IOException {
-        String imgFilePath = "src/main/java/edu/guilford/PlayerImages/"+playerCode+".jpeg";
+        String imgFilePath = App.class.getResource("PlayerImages/").getPath();
+        imgFilePath = imgFilePath + playerCode + ".jpeg";
         File tempDirectory = new File(imgFilePath);
-
         Image img = new Image(App.class.getResourceAsStream("imageUnavailable.png"));
 
         if (tempDirectory.exists()) {
@@ -185,7 +198,7 @@ public class WebScrape{
                 }
                 }   
             } catch (HttpStatusException e) {
-                img = new Image("finalproject/src/main/java/edu/guilford/imageUnavailable.png");
+                img = new Image(App.class.getResourceAsStream("imageUnavailable.png"));
                 System.out.println("Image Unavailable (429 Status Error)");
             }    
         } 
@@ -221,27 +234,38 @@ public class WebScrape{
         ArrayList<Player> players = new ArrayList<Player>();
         ArrayList<Player> filePlayers = new ArrayList<Player>();
 
-        String yearListFileLoc = "src/main/java/edu/guilford/yearLists/"+year+"List.ser";
+        String yearListFileLoc = App.class.getResource("yearLists/").getPath();
+        yearListFileLoc = yearListFileLoc + year + "List.ser";
         File tmpDir = new File(yearListFileLoc);
 
         Boolean createNewList = true;
         try{
             if (tmpDir.exists()) {
-                FileInputStream readData = new FileInputStream(yearListFileLoc);
-                ObjectInputStream readStream = new ObjectInputStream(readData);
-                LocalDateTime fileDate = (LocalDateTime) readStream.readObject();
-                
-                filePlayers = (ArrayList<Player>) readStream.readObject();
-                System.out.println(filePlayers.size());
-                long hoursElapsed = fileDate.until(LocalDateTime.now(), ChronoUnit.HOURS);
-                //System.out.println(hoursElapsed);
-                if (hoursElapsed <= 5) {
-                    //System.out.println("pulled from files");
-                    players = filePlayers;
+                if (year < java.time.Year.now().getValue()-1 && !UPDATE_OLD_LISTS) {
                     createNewList = false;
-                    System.out.println("pulled from files");
+
+                    FileInputStream readData = new FileInputStream(yearListFileLoc);
+                    ObjectInputStream readStream = new ObjectInputStream(readData);
+                    LocalDateTime fileDate = (LocalDateTime) readStream.readObject();
+                    filePlayers = (ArrayList<Player>) readStream.readObject();
+                    players = filePlayers;
+                    readStream.close();
+                } else {
+                    FileInputStream readData = new FileInputStream(yearListFileLoc);
+                    ObjectInputStream readStream = new ObjectInputStream(readData);
+                    LocalDateTime fileDate = (LocalDateTime) readStream.readObject();
+                    filePlayers = (ArrayList<Player>) readStream.readObject();
+                    // System.out.println(filePlayers.size());
+                    long hoursElapsed = fileDate.until(LocalDateTime.now(), ChronoUnit.HOURS);
+                    //System.out.println(hoursElapsed);
+                    if (hoursElapsed <= 5) {
+                        //System.out.println("pulled from files");
+                        players = filePlayers;
+                        createNewList = false;
+                        System.out.println("pulled from files");
+                    }
+                    readStream.close();
                 }
-                readStream.close();
             }
 
             //createNewList = true; //Comment out this line to remove file bypass
