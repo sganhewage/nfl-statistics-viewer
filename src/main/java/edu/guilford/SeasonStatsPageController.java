@@ -2,6 +2,7 @@ package edu.guilford;
 
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
@@ -21,8 +22,8 @@ import java.util.HashMap;
 import edu.guilford.WebScrape.InvalidYearException;
 
 public class SeasonStatsPageController {
-    private ArrayList<Player> players;
     private int listYear = PlayerTable.initYear;
+    private ArrayList<Player> players;
 
     private int fadeTime = 1500; //milliseconds
 
@@ -34,6 +35,10 @@ public class SeasonStatsPageController {
 
     @FXML
     private ScrollPane scrollPane;
+
+    public SeasonStatsPageController() throws IOException {
+        players = WebScrape.createPlayerList(listYear);
+    }
 
     @FXML
     private VBox tableRoot;
@@ -111,32 +116,15 @@ public class SeasonStatsPageController {
     private Label teamLabel;
 
     @FXML
+    private Button nextYearButton;
+
+    @FXML
+    private Button previousYearButton;
+
+    @FXML
     private void initialize() throws IOException {
-        playerTable = new PlayerTable();
-        tableRoot.getChildren().add(playerTable);
-        
-        // resize the table to fit the group
-        playerTable.prefWidthProperty().bind(tableRoot.widthProperty());
-        playerTable.prefHeightProperty().bind(tableRoot.heightProperty());
-
-        playerTable.setOnMouseClicked(e -> {
-            getTableSelected();
-        });
-        playerTable.setOnKeyPressed(e -> {
-            getTableSelected();
-        });
-
-        subtitle.setText(PlayerTable.initYear + " Season");
-        subtitle1.setText("Select a Year Range");
-
-        setSlider();
-        resetYearField();
-
-        leftPanel.getChildren().remove(yearVBox);
-        leftPanel.getChildren().remove(yearRangeVBox);
+        updatePlayerTable(false);
         handleToggleGroup();
-        getTableSelected();
-
         fadeIn();
     }
 
@@ -170,12 +158,28 @@ public class SeasonStatsPageController {
             subtitle.setText(listYear + " Season");
         }
 
+        ArrayList<Integer> validYears = null;
         try {
-            yearSlider.setMin(WebScrape.getValidYears().get(0));
-            yearSlider.setMax(WebScrape.getValidYears().get(WebScrape.getValidYears().size()-1));
+            validYears = WebScrape.getValidYears();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        yearSlider.setMin(validYears.get(0));
+        yearSlider.setMax(validYears.get(validYears.size()-1));
+
+        if (listYear == validYears.get(0)) {
+            previousYearButton.setDisable(true);
+        } else {
+            previousYearButton.setDisable(false);
+        }
+
+        if (listYear == validYears.get(validYears.size()-1)) {
+            nextYearButton.setDisable(true);
+        } else {
+            nextYearButton.setDisable(false);
+        }
+
         setSlider();
         resetYearField();
         getTableSelected();
@@ -252,7 +256,6 @@ public class SeasonStatsPageController {
                 Image img = WebScrape.playerProfileImage(selectedPlayer.getID());
                 playerImage.setImage(img);
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             nameLabel.setText(selectedPlayer.getName());
@@ -276,13 +279,26 @@ public class SeasonStatsPageController {
 
     @FXML
     private void handleToggleGroup() {
+        leftPanel.getChildren().remove(yearVBox);
+        leftPanel.getChildren().remove(yearRangeVBox);
         if (yearRButton.isSelected()) {
             leftPanel.getChildren().add(yearVBox);
-            leftPanel.getChildren().remove(yearRangeVBox);
         } else if (yearRangeRButton.isSelected()) {
-            leftPanel.getChildren().remove(yearVBox);
             leftPanel.getChildren().add(yearRangeVBox);
         }
     }
-    
+
+    @FXML
+    private void handlePreviousYear() throws IOException {
+        listYear--;
+        selectYear(listYear);
+        updatePlayerTable(false);
+    }
+
+    @FXML
+    private void handleNextYear() throws IOException {
+        listYear++;
+        selectYear(listYear);
+        updatePlayerTable(false);
+    }
 }

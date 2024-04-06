@@ -17,12 +17,12 @@ public class App extends Application {
 
     private int sceneWidth = 1280;
     private int sceneHeight = 720;
-
+    
     private static String styleSheet = App.class.getResource("primer-dark.css").toExternalForm();
 
     @Override
-    public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("startPage"), sceneWidth, sceneHeight);
+    public void start(@SuppressWarnings("exports") Stage stage) throws IOException {
+        scene = new Scene(loadFXML("seasonStatsPage"), sceneWidth, sceneHeight);
         scene.getStylesheets().add(styleSheet);
 
         stage.setScene(scene);

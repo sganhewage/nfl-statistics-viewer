@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
@@ -13,11 +12,8 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
-
-import javax.swing.ImageIcon;
 
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
@@ -47,7 +43,7 @@ public class WebScrape {
         return searchResults;
     }
 
-    @SuppressWarnings("unused")
+    //@SuppressWarnings("unused")
     static ArrayList<Player> careerTotals(int startYear, int endYear) throws IOException {
         //create an array of years to search
         int[] yearsArray = IntStream.rangeClosed(startYear, endYear).toArray();
@@ -243,10 +239,9 @@ public class WebScrape {
             if (tmpDir.exists()) {
                 if (year < java.time.Year.now().getValue()-1 && !UPDATE_OLD_LISTS) {
                     createNewList = false;
-
                     FileInputStream readData = new FileInputStream(yearListFileLoc);
                     ObjectInputStream readStream = new ObjectInputStream(readData);
-                    LocalDateTime fileDate = (LocalDateTime) readStream.readObject();
+                    readStream.readObject();
                     filePlayers = (ArrayList<Player>) readStream.readObject();
                     players = filePlayers;
                     readStream.close();
@@ -268,7 +263,7 @@ public class WebScrape {
                 }
             }
 
-            //createNewList = true; //Comment out this line to remove file bypass
+            // createNewList = true; //Uncomment this line to remove file bypass
 
             if (createNewList) {
                 //System.out.println("beginning web scrape");
