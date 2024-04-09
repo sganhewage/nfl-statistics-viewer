@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="searchVBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.guilford.PlayerSearchPageController">
+   <children>
+      <Label alignment="CENTER" prefHeight="18.0" prefWidth="1220.0" text="Player Search">
+         <VBox.margin>
+            <Insets bottom="15.0" left="30.0" right="30.0" top="30.0" />
+         </VBox.margin>
+         <font>
+            <Font name="Sinhala MN Bold" size="50.0" />
+         </font>
+      </Label>
+      <TextField fx:id="searchBar" onAction="#search" promptText="Enter Player Name to Search">
+         <VBox.margin>
+            <Insets bottom="30.0" left="200.0" right="200.0" top="15.0" />
+         </VBox.margin>
+         <font>
+            <Font name="Sinhala MN" size="30.0" />
+         </font>
+      </TextField>
+      <ListView fx:id="searchResults" prefHeight="400.0" prefWidth="200.0">
+         <VBox.margin>
+            <Insets bottom="15.0" left="200.0" right="200.0" top="15.0" />
+         </VBox.margin>
+      </ListView>
+      <Label fx:id="noPlayersFoundLabel" alignment="CENTER" prefHeight="40.0" prefWidth="1280.0" text="No Players Found">
+         <font>
+            <Font name="Sinhala Sangam MN" size="30.0" />
+         </font>
+      </Label>
+   </children>
+</VBox>

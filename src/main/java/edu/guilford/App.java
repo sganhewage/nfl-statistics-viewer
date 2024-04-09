@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import java.util.ArrayList;
 
 import java.io.IOException;
 
@@ -12,7 +13,6 @@ import java.io.IOException;
  * JavaFX App
  */
 public class App extends Application {
-
     private static Scene scene;
 
     private int sceneWidth = 1280;
@@ -22,7 +22,7 @@ public class App extends Application {
 
     @Override
     public void start(@SuppressWarnings("exports") Stage stage) throws IOException {
-        scene = new Scene(loadFXML("seasonStatsPage"), sceneWidth, sceneHeight);
+        scene = new Scene(loadFXML("playerSearchPage"), sceneWidth, sceneHeight);
         scene.getStylesheets().add(styleSheet);
 
         stage.setScene(scene);
