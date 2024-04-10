@@ -18,7 +18,7 @@ import javafx.scene.layout.VBox;
 
 public class StartPageController {
 
-    private long fadeTime = 1500; // milliseconds
+    private long fadeTime = 1000; // milliseconds
     private long pinWheelSpeed = 10; // millis between movements
 
     @FXML

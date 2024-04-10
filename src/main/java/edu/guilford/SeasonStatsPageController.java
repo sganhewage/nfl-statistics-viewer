@@ -25,7 +25,7 @@ public class SeasonStatsPageController {
     private int listYear = PlayerTable.initYear;
     private ArrayList<Player> players;
 
-    private int fadeTime = 1500; //milliseconds
+    private int fadeTime = 500; //milliseconds
 
     @FXML
     private PlayerTable playerTable;

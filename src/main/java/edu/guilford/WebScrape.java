@@ -245,21 +245,20 @@ public class WebScrape {
                     filePlayers = (ArrayList<Player>) readStream.readObject();
                     players = filePlayers;
                     readStream.close();
+                    return players;
                 } else {
                     FileInputStream readData = new FileInputStream(yearListFileLoc);
                     ObjectInputStream readStream = new ObjectInputStream(readData);
                     LocalDateTime fileDate = (LocalDateTime) readStream.readObject();
                     filePlayers = (ArrayList<Player>) readStream.readObject();
-                    // System.out.println(filePlayers.size());
+                    readStream.close();
                     long hoursElapsed = fileDate.until(LocalDateTime.now(), ChronoUnit.HOURS);
-                    //System.out.println(hoursElapsed);
                     if (hoursElapsed <= 5) {
-                        //System.out.println("pulled from files");
                         players = filePlayers;
                         createNewList = false;
-                        System.out.println("pulled from files");
+                        return players;
                     }
-                    readStream.close();
+                    
                 }
             }
 
@@ -485,7 +484,9 @@ public class WebScrape {
         teamAbbreviations.put("WAC", "Washington Commanders");
         teamAbbreviations.put("STL", "St. Louis Rams");
         teamAbbreviations.put("OAK", "Oakland Raiders");
+        teamAbbreviations.put("RAI", "Los Angeles Raiders");
         teamAbbreviations.put("SDG", "San Diego Chargers");
+        teamAbbreviations.put("PHO", "Phoenix Cardinals");
         teamAbbreviations.put("2TM", "2 Different Teams");
         teamAbbreviations.put("3TM", "3 Different Teams");
         teamAbbreviations.put("4TM", "4 Different Teams");
@@ -528,6 +529,8 @@ public class WebScrape {
         teamAbbreviations.put("Washington Commanders", "WAC");
         teamAbbreviations.put("St. Louis Rams", "STL");
         teamAbbreviations.put("Oakland Raiders", "OAK");
+        teamAbbreviations.put("Los Angeles Raiders", "RAI");
+        teamAbbreviations.put("Phoenix Cardinals", "PHO");
         teamAbbreviations.put("San Diego Chargers", "SDG");
         teamAbbreviations.put("2 Different Teams", "2TM");
         teamAbbreviations.put("3 Different Teams", "3TM");

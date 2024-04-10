@@ -65,7 +65,7 @@
             </VBox>
             <VBox prefHeight="400.0" prefWidth="788.0">
                <children>
-                  <Button fx:id="choice2" mnemonicParsing="false" prefHeight="124.0" prefWidth="678.0" text="Player Profiles">
+                  <Button fx:id="choice2" mnemonicParsing="false" prefHeight="124.0" prefWidth="678.0" text="Player Profiles" onAction="#switchToPlayerProfile">
                      <font>
                         <Font name="Sinhala MN Bold" size="44.0" />
                      </font>
