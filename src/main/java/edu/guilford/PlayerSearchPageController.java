@@ -1,14 +1,20 @@
 package edu.guilford;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import edu.guilford.WebScrape.InvalidYearException;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
@@ -51,6 +57,18 @@ public class PlayerSearchPageController {
     private ChoiceBox<String> yearsChoiceBox;
 
     @FXML
+    private CheckBox qbFilter;
+
+    @FXML
+    private CheckBox rbFilter;
+
+    @FXML
+    private CheckBox wrFilter;
+
+    @FXML
+    private CheckBox teFilter;
+
+    @FXML
     private Label yearFieldWarning;
 
     @FXML
@@ -62,10 +80,16 @@ public class PlayerSearchPageController {
         searchVBox.getChildren().remove(noPlayersFoundLabel);
         yearRangeBox.getChildren().remove(yearFieldWarning);
         
-        yearsChoiceBox.getItems().add("Select Sort Method");
-        yearsChoiceBox.getItems().add("Sort Years (Ascending)");
         yearsChoiceBox.getItems().add("Sort Years (Descending)");
+        yearsChoiceBox.getItems().add("Sort Years (Ascending)");
         yearsChoiceBox.getSelectionModel().selectFirst();
+        yearsChoiceBox.setOnAction(e -> {
+            try {
+                search();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
     }
 
     @FXML
@@ -130,6 +154,24 @@ public class PlayerSearchPageController {
         } else if (yearsChoiceBox.getSelectionModel().getSelectedIndex() == 2) {
             searchPlayers.sort((Player p1, Player p2) -> p2.getYear() - p1.getYear());
         }
+        
+        ArrayList<String> includedPositions = new ArrayList<String>();
+        if (qbFilter.isSelected()) {
+            includedPositions.add("QB");
+        }
+        if (rbFilter.isSelected()) {
+            includedPositions.add("RB");
+        }
+        if (wrFilter.isSelected()) {
+            includedPositions.add("WR");
+        }
+        if (teFilter.isSelected()) {
+            includedPositions.add("TE");
+        }
+
+        if (!includedPositions.isEmpty()) {
+            searchPlayers.removeIf(player -> !includedPositions.contains(player.getPOS()));
+        }
 
         final int finalStartYear = startYear;
         final int finalEndYear = endYear;
@@ -142,6 +184,7 @@ public class PlayerSearchPageController {
     private void getPlayerSelected() {
         int selectedPlayerIndex = searchResults.getSelectionModel().getSelectedIndex();
         PlayerProfilePageController.player = searchPlayers.get(selectedPlayerIndex);
+        PlayerProfilePageController.previousPage = "playerSearchPage";
         try {
             App.setRoot("playerProfilePage");
         } catch (IOException e) {
@@ -154,7 +197,17 @@ public class PlayerSearchPageController {
         yearsChoiceBox.getSelectionModel().selectFirst();
         startYearField.clear();
         endYearField.clear();
+        qbFilter.setSelected(false);
+        rbFilter.setSelected(false);
+        wrFilter.setSelected(false);
+        teFilter.setSelected(false);
         yearRangeBox.getChildren().remove(yearFieldWarning);
+
+        try {
+            search();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

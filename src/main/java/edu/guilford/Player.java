@@ -3,6 +3,8 @@ package edu.guilford;
 import java.io.Serializable;
 
 public class Player implements Serializable {
+    private static final long serialVersionUID = 8265251544591419712L;
+
     private int Year;
     private String Name;
     private String ID;
@@ -101,6 +103,33 @@ public class Player implements Serializable {
                 "Rushing Touchdowns", "Receiving Targets", "Receptions", "Receiving Yards",
                 "Yards Per Reception", "Receiving Touchdowns", "Fumbles", "Fumbles Lost",
                 "Total Touchdowns"
+        };
+    }
+
+    public static String[] getProfileAttributes() {
+        return new String[]{
+                "Year", "Team", "Age", "POS", "GP", "GS", "CMP", "PASS_ATT",
+                "PASS_YDS", "PASS_TDS", "INT", "RUSH_ATT", "RUSH_YDS", "RUSH_YA", "RUSH_TDS",
+                "TGT", "REC", "REC_YDS", "REC_YA", "REC_TDS", "FUM", "FUM_LOST", "TOTAL_TDS"
+        };
+    }
+
+    public static String[] getProfileAttributeNames() {
+        return new String[]{
+                "Year", "Team", "Age", "Position", "Games Played", "Games Started",
+                "Passing Completions", "Passing Attempts", "Passing Yards", "Passing Touchdowns",
+                "Interceptions", "Rushing Attempts", "Rushing Yards", "Rushing Yards Per Attempt",
+                "Rushing Touchdowns", "Receiving Targets", "Receptions", "Receiving Yards",
+                "Yards Per Reception", "Receiving Touchdowns", "Fumbles", "Fumbles Lost",
+                "Total Touchdowns"
+        };
+    }
+
+    public static String[] getProfileAttributeType() {
+        return new String[]{
+                "int", "String", "int", "String", "int", "int", "int", "int",
+                "int", "int", "int", "int", "int", "double", "int",
+                "int", "int", "int", "double", "int", "int", "int", "int"
         };
     }
 

@@ -301,4 +301,11 @@ public class SeasonStatsPageController {
         selectYear(listYear);
         updatePlayerTable(false);
     }
+
+    @FXML
+    private void switchToPlayerProfilePage() throws IOException {
+        PlayerProfilePageController.player = playerTable.getSelectionModel().getSelectedItem();
+        PlayerProfilePageController.previousPage = "seasonStatsPage";
+        App.setRoot("playerProfilePage");
+    }
 }

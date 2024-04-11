@@ -24,9 +24,6 @@ import org.jsoup.select.*;
 
 import javafx.scene.image.Image;
 
-
-
-
 public class WebScrape {
     final static int FILE_REFRESH_TIME = 5; //hours
     final static boolean UPDATE_OLD_LISTS = false;
