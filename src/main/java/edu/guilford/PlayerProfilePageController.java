@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 public class PlayerProfilePageController {
@@ -25,7 +26,12 @@ public class PlayerProfilePageController {
     private ImageView playerImage;
 
     @FXML
-    private void initialize() {
+    private GridPane playerInfoGrid;
+
+    @FXML
+    private void initialize() throws IOException {
+        player = WebScrape.createPlayerList(2018).get(0);
+
         title.setText(player.getName());
         try {
             Image img = WebScrape.playerProfileImage(player.getID());
@@ -46,7 +52,7 @@ public class PlayerProfilePageController {
         tableRoot.getChildren().clear();
         tableRoot.getChildren().add(playerTable);
         playerTable.prefWidthProperty().bind(tableRoot.widthProperty());
-        playerTable.prefHeightProperty().bind(tableRoot.heightProperty());
+        tableRoot.setMaxHeight(playerTable.getPrefHeight());
     }
 
     @FXML

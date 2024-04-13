@@ -37,99 +37,99 @@ public class Player implements Serializable {
     @Override
     public String toString() {
         return "Player [Year=" + Year + ", Name=" + Name + ", ID=" + ID + ", Team=" + Team + ", Position=" + POS
-                + ", Age=" + Age + ", Games_Played=" + GP + ", Games_Started=" + GS
-                + ", Passing_Completions=" + CMP + ", Passing_Attempts=" + PASS_ATT
-                + ", Passing_Yards=" + PASS_YDS + ", Passing_Touchdowns=" + PASS_TDS + ", Interceptions="
-                + INT + ", Rushing_Attempts=" + RUSH_ATT + ", Rushing_Yards=" + RUSH_YDS
-                + ", Rushing_Yards_Per_Attempt=" + RUSH_YA + ", Rushing_Touchdowns="
-                + RUSH_TDS + ", Receiving_Targets=" + TGT + ", Receptions=" + REC
-                + ", Receiving_Yards=" + REC_YDS + ", Yards_Per_Reception=" + REC_YA
-                + ", Receiving_Touchdowns=" + REC_TDS + ", Fumbles=" + FUM + ", Fumbles_Lost="
-                + FUM_LOST + ", Total_Touchdowns=" + TOTAL_TDS + ", Position_Rank=" + POS_RANK
-                + ", Overall_Rank=" + OVR_RANK + "]";
+            + ", Age=" + Age + ", Games_Played=" + GP + ", Games_Started=" + GS
+            + ", Passing_Completions=" + CMP + ", Passing_Attempts=" + PASS_ATT
+            + ", Passing_Yards=" + PASS_YDS + ", Passing_Touchdowns=" + PASS_TDS + ", Interceptions="
+            + INT + ", Rushing_Attempts=" + RUSH_ATT + ", Rushing_Yards=" + RUSH_YDS
+            + ", Rushing_Yards_Per_Attempt=" + RUSH_YA + ", Rushing_Touchdowns="
+            + RUSH_TDS + ", Receiving_Targets=" + TGT + ", Receptions=" + REC
+            + ", Receiving_Yards=" + REC_YDS + ", Yards_Per_Reception=" + REC_YA
+            + ", Receiving_Touchdowns=" + REC_TDS + ", Fumbles=" + FUM + ", Fumbles_Lost="
+            + FUM_LOST + ", Total_Touchdowns=" + TOTAL_TDS + ", Position_Rank=" + POS_RANK
+            + ", Overall_Rank=" + OVR_RANK + "]";
     }
 
     public static String[] getAttributes() {
         return new String[]{
-                "Year", "Name", "Team", "POS", "Age", "OVR_RANK", "POS_RANK", "GP", "GS", "CMP", "PASS_ATT",
-                "PASS_YDS", "PASS_TDS", "INT", "RUSH_ATT", "RUSH_YDS", "RUSH_YA", "RUSH_TDS",
-                "TGT", "REC", "REC_YDS", "REC_YA", "REC_TDS", "FUM", "FUM_LOST", "TOTAL_TDS"
+            "Year", "Name", "Team", "POS", "Age", "OVR_RANK", "POS_RANK", "GP", "GS", "CMP", "PASS_ATT",
+            "PASS_YDS", "PASS_TDS", "INT", "RUSH_ATT", "RUSH_YDS", "RUSH_YA", "RUSH_TDS",
+            "TGT", "REC", "REC_YDS", "REC_YA", "REC_TDS", "FUM", "FUM_LOST", "TOTAL_TDS"
         };
     }
 
     public static String[] getAttributeNames() {
         return new String[]{
-                "Year", "Name", "Team", "Position", "Age","Overall Rank","Position Rank", "Games Played", "Games Started",
-                "Passing Completions", "Passing Attempts", "Passing Yards", "Passing Touchdowns",
-                "Interceptions", "Rushing Attempts", "Rushing Yards", "Rushing Yards Per Attempt",
-                "Rushing Touchdowns", "Receiving Targets", "Receptions", "Receiving Yards",
-                "Yards Per Reception", "Receiving Touchdowns", "Fumbles", "Fumbles Lost",
-                "Total Touchdowns"
+            "Year", "Name", "Team", "Position", "Age","Overall Rank","Position Rank", "Games Played", "Games Started",
+            "Passing Completions", "Passing Attempts", "Passing Yards", "Passing Touchdowns",
+            "Interceptions", "Rushing Attempts", "Rushing Yards", "Rushing Yards Per Attempt",
+            "Rushing Touchdowns", "Receiving Targets", "Receptions", "Receiving Yards",
+            "Yards Per Reception", "Receiving Touchdowns", "Fumbles", "Fumbles Lost",
+            "Total Touchdowns"
         };
     }
 
     public static String[] getAttributeType() {
         return new String[]{
-                "int", "String", "String", "String", "int","int","int", "int", "int",
-                "int", "int", "int", "int",
-                "int", "int", "int", "double",
-                "int", "int", "int", "int",
-                "double", "int", "int", "int",
-                "int"
+            "int", "String", "String", "String", "int","int","int", "int", "int",
+            "int", "int", "int", "int",
+            "int", "int", "int", "double",
+            "int", "int", "int", "int",
+            "double", "int", "int", "int",
+            "int"
         };
     }
 
     public static String[] getRangeAttributes() {
         return new String[]{
-                "Name", "Team", "POS", "Age", "GP", "GS", "CMP", "PASS_ATT",
-                "PASS_YDS", "PASS_TDS", "INT", "RUSH_ATT", "RUSH_YDS", "RUSH_YA", "RUSH_TDS",
-                "TGT", "REC", "REC_YDS", "REC_YA", "REC_TDS", "FUM", "FUM_LOST", "TOTAL_TDS"
+            "Name", "Team", "POS", "Age", "GP", "GS", "CMP", "PASS_ATT",
+            "PASS_YDS", "PASS_TDS", "INT", "RUSH_ATT", "RUSH_YDS", "RUSH_YA", "RUSH_TDS",
+            "TGT", "REC", "REC_YDS", "REC_YA", "REC_TDS", "FUM", "FUM_LOST", "TOTAL_TDS"
         };
     }
 
     public static String[] getRangeAttributeType() {
         return new String[]{
-                "String", "String", "String", "int", "int", "int", "int", "int",
-                "int", "int", "int", "int", "int", "double", "int",
-                "int", "int", "int", "double", "int", "int", "int", "int"
+            "String", "String", "String", "int", "int", "int", "int", "int",
+            "int", "int", "int", "int", "int", "double", "int",
+            "int", "int", "int", "double", "int", "int", "int", "int"
         };
     }
 
     public static String[] getRangeAttributeNames() {
         return new String[]{
-                "Name", "Team", "Position", "Age", "Games Played", "Games Started",
-                "Passing Completions", "Passing Attempts", "Passing Yards", "Passing Touchdowns",
-                "Interceptions", "Rushing Attempts", "Rushing Yards", "Rushing Yards Per Attempt",
-                "Rushing Touchdowns", "Receiving Targets", "Receptions", "Receiving Yards",
-                "Yards Per Reception", "Receiving Touchdowns", "Fumbles", "Fumbles Lost",
-                "Total Touchdowns"
+            "Name", "Team", "Position", "Age", "Games Played", "Games Started",
+            "Passing Completions", "Passing Attempts", "Passing Yards", "Passing Touchdowns",
+            "Interceptions", "Rushing Attempts", "Rushing Yards", "Rushing Yards Per Attempt",
+            "Rushing Touchdowns", "Receiving Targets", "Receptions", "Receiving Yards",
+            "Yards Per Reception", "Receiving Touchdowns", "Fumbles", "Fumbles Lost",
+            "Total Touchdowns"
         };
     }
 
     public static String[] getProfileAttributes() {
         return new String[]{
-                "Year", "Team", "Age", "POS", "GP", "GS", "CMP", "PASS_ATT",
-                "PASS_YDS", "PASS_TDS", "INT", "RUSH_ATT", "RUSH_YDS", "RUSH_YA", "RUSH_TDS",
-                "TGT", "REC", "REC_YDS", "REC_YA", "REC_TDS", "FUM", "FUM_LOST", "TOTAL_TDS"
+            "Year", "Team", "Age", "POS", "GP", "GS", "CMP", "PASS_ATT",
+            "PASS_YDS", "PASS_TDS", "INT", "RUSH_ATT", "RUSH_YDS", "RUSH_YA", "RUSH_TDS",
+            "TGT", "REC", "REC_YDS", "REC_YA", "REC_TDS", "FUM", "FUM_LOST", "TOTAL_TDS"
         };
     }
 
     public static String[] getProfileAttributeNames() {
         return new String[]{
-                "Year", "Team", "Age", "Position", "Games Played", "Games Started",
-                "Passing Completions", "Passing Attempts", "Passing Yards", "Passing Touchdowns",
-                "Interceptions", "Rushing Attempts", "Rushing Yards", "Rushing Yards Per Attempt",
-                "Rushing Touchdowns", "Receiving Targets", "Receptions", "Receiving Yards",
-                "Yards Per Reception", "Receiving Touchdowns", "Fumbles", "Fumbles Lost",
-                "Total Touchdowns"
+            "Year", "Team", "Age", "Position", "Games Played", "Games Started",
+            "Passing Completions", "Passing Attempts", "Passing Yards", "Passing Touchdowns",
+            "Interceptions", "Rushing Attempts", "Rushing Yards", "Rushing Yards Per Attempt",
+            "Rushing Touchdowns", "Receiving Targets", "Receptions", "Receiving Yards",
+            "Yards Per Reception", "Receiving Touchdowns", "Fumbles", "Fumbles Lost",
+            "Total Touchdowns"
         };
     }
 
     public static String[] getProfileAttributeType() {
         return new String[]{
-                "int", "String", "int", "String", "int", "int", "int", "int",
-                "int", "int", "int", "int", "int", "double", "int",
-                "int", "int", "int", "double", "int", "int", "int", "int"
+            "int", "String", "int", "String", "int", "int", "int", "int",
+            "int", "int", "int", "int", "int", "double", "int",
+            "int", "int", "int", "double", "int", "int", "int", "int"
         };
     }
 

@@ -17,12 +17,18 @@ import java.util.stream.IntStream;
 
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
+import org.json.JSONObject;
 import org.jsoup.Connection.Response;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.*;
 
 import javafx.scene.image.Image;
+import java.net.http.HttpResponse;
+import java.net.http.HttpRequest;
+import java.net.URI;
+import java.net.http.HttpClient;
+import org.json.JSONArray;
 
 public class WebScrape {
     final static int FILE_REFRESH_TIME = 5; //hours
@@ -534,7 +540,108 @@ public class WebScrape {
         teamAbbreviations.put("4 Different Teams", "4TM");
     }
 
-    // create an exception class
+    public static HashMap<String, ? extends Object> getPlayerInfo(Player player) throws IOException, InterruptedException {
+        HashMap<String, Object> playerInfo = new HashMap<String, Object>();
+
+        String playerName = player.getName().toLowerCase().replaceAll(" ","_");
+        playerName = "jerry";
+
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create("https://tank01-nfl-live-in-game-real-time-statistics-nfl.p.rapidapi.com/getNFLPlayerInfo?playerName="+playerName+"&getStats=false"))
+            .header("X-RapidAPI-Key", "89f460f21fmsh1ca57af1260829fp1026dejsna30dc5df52b4")
+            .header("X-RapidAPI-Host", "tank01-nfl-live-in-game-real-time-statistics-nfl.p.rapidapi.com")
+            .method("GET", HttpRequest.BodyPublishers.noBody())
+            .build();
+        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        
+        int weight = 0;
+        String jerseyNum = "N/A";
+        String team = "";
+        int age = 0;
+        String espnLink = "";
+        String bDay = "";
+        String school = "";
+        String pos = "";
+        String height = "";
+        int exp = 0;
+        boolean playerFound = false;
+
+        JSONObject jsonDataObject = new JSONObject(response.body());
+        JSONArray body = jsonDataObject.getJSONArray("body");
+        System.out.println(body);
+        if (body.length() == 0) {
+            playerInfo.put("weight", weight);
+            playerInfo.put("jerseyNum", jerseyNum);
+            playerInfo.put("team", team);
+            playerInfo.put("age", age);
+            playerInfo.put("espnLink", espnLink);
+            playerInfo.put("bDay", bDay);
+            playerInfo.put("school", school);
+            playerInfo.put("pos", pos);
+            playerInfo.put("height", height);
+            playerInfo.put("exp", exp);
+            playerInfo.put("playerFound", playerFound);
+            return playerInfo;
+        } else {
+            playerFound = true;
+        }
+
+        int searchMatches = 0;
+        try {
+            while (true) {
+                searchMatches++;
+                body.getJSONObject(searchMatches);
+            }
+        } catch (org.json.JSONException e) {
+            if (e.getMessage().equals("JSONArray["+(searchMatches)+"] not found.")) {
+                System.out.println("Search Matches: " + searchMatches);
+            } else {
+                e.printStackTrace();
+            }
+        }
+
+        JSONObject playerData = body.getJSONObject(0);
+        if (searchMatches > 1) {
+            for (int i = 0; i < searchMatches; i++) {
+                playerData = body.getJSONObject(i);
+                System.out.print(player.getAge());
+                System.out.println(playerData.getInt("age"));
+
+                if (playerData.getString("pos").equals(player.getPOS())
+                    && playerData.getInt("age") == player.getAge()) {
+                    break;
+                }
+            }
+        }
+
+        for (int i = 0; i < searchMatches; i++) {
+            weight = playerData.getInt("weight");
+            jerseyNum = playerData.getString("jerseyNum");
+            team = playerData.getString("team");
+            age = playerData.getInt("age");
+            espnLink = playerData.getString("espnLink");
+            bDay = playerData.getString("bDay");
+            school = playerData.getString("school");
+            pos = playerData.getString("pos");
+            height = playerData.getString("height");
+            exp = playerData.getInt("exp");
+        }
+
+        // add the player info to the hashmap
+        playerInfo.put("weight", weight);
+        playerInfo.put("jerseyNum", jerseyNum);
+        playerInfo.put("team", team);
+        playerInfo.put("age", age);
+        playerInfo.put("espnLink", espnLink);
+        playerInfo.put("bDay", bDay);
+        playerInfo.put("school", school);
+        playerInfo.put("pos", pos);
+        playerInfo.put("height", height);
+        playerInfo.put("exp", exp);
+        playerInfo.put("playerFound", playerFound);
+        return playerInfo;
+    }
+
     public static class InvalidYearException extends RuntimeException {
         public InvalidYearException(String message) {
             super(message);

@@ -71,9 +71,8 @@ public class PlayerProfileTable extends TableView<Player> {
     }
     // grab each relevant player attribute and add it to the table under the correct column
     public void setPlayerData() {
-        for (Player p : playerYears) {
-            System.out.println(p);
-            this.getItems().add(p);
+        for (int i = playerYears.size()-1; i >= 0; i--) {
+            this.getItems().add(playerYears.get(i));
         }
     }
 }
