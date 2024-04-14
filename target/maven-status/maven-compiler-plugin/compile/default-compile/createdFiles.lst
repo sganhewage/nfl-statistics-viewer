@@ -1,4 +1,7 @@
 edu/guilford/HomePageController$2.class
+edu/guilford/PlayerCareerTable.class
+edu/guilford/PlayerProfilePageController.class
+edu/guilford/PlayerProfileTable.class
 edu/guilford/PlayerSearchPageController.class
 edu/guilford/HomePageController.class
 edu/guilford/PlayerTable.class
@@ -8,6 +11,7 @@ edu/guilford/WebScrape$InvalidYearException.class
 edu/guilford/SeasonStatsPageController.class
 edu/guilford/App.class
 edu/guilford/StartPageController$1.class
+edu/guilford/HomePageController$3.class
 edu/guilford/Player.class
 edu/guilford/WebScrape.class
 edu/guilford/StartPageController.class

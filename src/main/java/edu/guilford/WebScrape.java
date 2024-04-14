@@ -17,18 +17,12 @@ import java.util.stream.IntStream;
 
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
-import org.json.JSONObject;
 import org.jsoup.Connection.Response;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.*;
 
 import javafx.scene.image.Image;
-import java.net.http.HttpResponse;
-import java.net.http.HttpRequest;
-import java.net.URI;
-import java.net.http.HttpClient;
-import org.json.JSONArray;
 
 public class WebScrape {
     final static int FILE_REFRESH_TIME = 5; //hours
@@ -540,106 +534,93 @@ public class WebScrape {
         teamAbbreviations.put("4 Different Teams", "4TM");
     }
 
-    public static HashMap<String, ? extends Object> getPlayerInfo(Player player) throws IOException, InterruptedException {
-        HashMap<String, Object> playerInfo = new HashMap<String, Object>();
+    @SuppressWarnings("unchecked")
+    public static ArrayList<String> getPlayerInfo(Player player) throws IOException, InterruptedException {
+        String playerCode = player.getID();
+        String playerInfoFileLoc = App.class.getResource("PlayerInfo/").getPath();
+        playerInfoFileLoc = playerInfoFileLoc + playerCode + "Info.ser";
+        File tmpDir = new File(playerInfoFileLoc);
 
-        String playerName = player.getName().toLowerCase().replaceAll(" ","_");
-        playerName = "jerry";
+        ArrayList<String> playerInfoList = new ArrayList<String>();
+        boolean createNewList = true;
 
-        HttpRequest request = HttpRequest.newBuilder()
-            .uri(URI.create("https://tank01-nfl-live-in-game-real-time-statistics-nfl.p.rapidapi.com/getNFLPlayerInfo?playerName="+playerName+"&getStats=false"))
-            .header("X-RapidAPI-Key", "89f460f21fmsh1ca57af1260829fp1026dejsna30dc5df52b4")
-            .header("X-RapidAPI-Host", "tank01-nfl-live-in-game-real-time-statistics-nfl.p.rapidapi.com")
-            .method("GET", HttpRequest.BodyPublishers.noBody())
-            .build();
-        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-        
-        int weight = 0;
-        String jerseyNum = "N/A";
-        String team = "";
-        int age = 0;
-        String espnLink = "";
-        String bDay = "";
-        String school = "";
-        String pos = "";
-        String height = "";
-        int exp = 0;
-        boolean playerFound = false;
-
-        JSONObject jsonDataObject = new JSONObject(response.body());
-        JSONArray body = jsonDataObject.getJSONArray("body");
-        System.out.println(body);
-        if (body.length() == 0) {
-            playerInfo.put("weight", weight);
-            playerInfo.put("jerseyNum", jerseyNum);
-            playerInfo.put("team", team);
-            playerInfo.put("age", age);
-            playerInfo.put("espnLink", espnLink);
-            playerInfo.put("bDay", bDay);
-            playerInfo.put("school", school);
-            playerInfo.put("pos", pos);
-            playerInfo.put("height", height);
-            playerInfo.put("exp", exp);
-            playerInfo.put("playerFound", playerFound);
-            return playerInfo;
-        } else {
-            playerFound = true;
+        try {
+            if (tmpDir.exists()) {
+                createNewList = false;
+                FileInputStream readData = new FileInputStream(playerInfoFileLoc);
+                ObjectInputStream readStream = new ObjectInputStream(readData);
+                LocalDateTime fileDate = (LocalDateTime) readStream.readObject();
+                playerInfoList = (ArrayList<String>) readStream.readObject();
+                readStream.close();
+                long hoursElapsed = fileDate.until(LocalDateTime.now(), ChronoUnit.HOURS);
+                if (hoursElapsed <= 5) {
+                    createNewList = false;
+                    // System.out.println("Player info pulled from files");
+                    return playerInfoList;
+                } else {
+                    createNewList = true;
+                    // System.out.println("Player info file created");
+                }
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
-        int searchMatches = 0;
-        try {
-            while (true) {
-                searchMatches++;
-                body.getJSONObject(searchMatches);
+        if (createNewList) {
+            System.out.println("Creating new player info list");
+            String url = "https://www.pro-football-reference.com/players/"+playerCode.charAt(0)+"/"+playerCode+".htm";
+            Document document = Jsoup.connect(url).get();
+            Elements playerInfo = document.getElementsByTag("p");
+            playerInfoList = (ArrayList<String>) playerInfo.eachText();
+            
+            int breakIndex = 0;
+            int removeIndex = 0;
+            int collegeIndex = 0;
+            for (String s : playerInfoList) {
+                if (s.contains("Weighted")) {
+                    removeIndex = playerInfoList.indexOf(s);
+                }
+                if (s.contains("Draft: ")) {
+                    breakIndex = playerInfoList.indexOf(s);
+                }
+                if (s.contains("College:")) {
+                    collegeIndex = playerInfoList.indexOf(s);
+                }
             }
-        } catch (org.json.JSONException e) {
-            if (e.getMessage().equals("JSONArray["+(searchMatches)+"] not found.")) {
-                System.out.println("Search Matches: " + searchMatches);
-            } else {
+            playerInfoList.set(collegeIndex, playerInfoList.get(collegeIndex).replace("(College Stats)", ""));
+            playerInfoList.remove(playerInfoList.get(removeIndex));
+            playerInfoList = new ArrayList<String>(playerInfoList.subList(0, breakIndex));
+
+            if (playerInfoList.size()==0) {
+                playerInfoList.add("Name: " + player.getName());
+                playerInfoList.add("Position: " + player.getPOS());
+                playerInfoList.add("Height/Weight Unavailable");
+                playerInfoList.add("Team: " + player.getTeam());
+                playerInfoList.add("Born: Unavailable");
+                playerInfoList.add("College: Unavailable");
+                playerInfoList.add("High School: Unavailable");
+                playerInfoList.add("Draft: Unavailable");
+            } else if (!playerInfoList.get(3).contains("Team:")) {
+                playerInfoList.add(3, "Team: None");
+            }
+
+            try {
+                tmpDir.delete();
+
+                LocalDateTime date = LocalDateTime.now();
+
+                FileOutputStream writeData = new FileOutputStream(playerInfoFileLoc, false);
+                ObjectOutputStream writeStream = new ObjectOutputStream(writeData);
+
+                writeStream.writeObject(date);
+                writeStream.writeObject(playerInfoList);
+                writeStream.flush();
+                writeStream.close();
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-
-        JSONObject playerData = body.getJSONObject(0);
-        if (searchMatches > 1) {
-            for (int i = 0; i < searchMatches; i++) {
-                playerData = body.getJSONObject(i);
-                System.out.print(player.getAge());
-                System.out.println(playerData.getInt("age"));
-
-                if (playerData.getString("pos").equals(player.getPOS())
-                    && playerData.getInt("age") == player.getAge()) {
-                    break;
-                }
-            }
-        }
-
-        for (int i = 0; i < searchMatches; i++) {
-            weight = playerData.getInt("weight");
-            jerseyNum = playerData.getString("jerseyNum");
-            team = playerData.getString("team");
-            age = playerData.getInt("age");
-            espnLink = playerData.getString("espnLink");
-            bDay = playerData.getString("bDay");
-            school = playerData.getString("school");
-            pos = playerData.getString("pos");
-            height = playerData.getString("height");
-            exp = playerData.getInt("exp");
-        }
-
-        // add the player info to the hashmap
-        playerInfo.put("weight", weight);
-        playerInfo.put("jerseyNum", jerseyNum);
-        playerInfo.put("team", team);
-        playerInfo.put("age", age);
-        playerInfo.put("espnLink", espnLink);
-        playerInfo.put("bDay", bDay);
-        playerInfo.put("school", school);
-        playerInfo.put("pos", pos);
-        playerInfo.put("height", height);
-        playerInfo.put("exp", exp);
-        playerInfo.put("playerFound", playerFound);
-        return playerInfo;
+        return playerInfoList;
     }
 
     public static class InvalidYearException extends RuntimeException {
