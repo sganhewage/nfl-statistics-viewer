@@ -7,41 +7,40 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class PlayerProfileTable extends TableView<Player> {
+public class PlayerCareerTable extends TableView<Player> {
     private Player player;
-    private ArrayList<Player> playerYears = new ArrayList<>();
+    private ArrayList<Player> playerTable = new ArrayList<>();
     private String[] columnNames;
     private String[] attributeTypes;
 
-    public PlayerProfileTable(Player player) throws IOException {
+    public PlayerCareerTable(Player player) throws IOException {
         super();
         this.player = player;
-        columnNames = Player.getProfileAttributes();
-        attributeTypes = Player.getProfileAttributeType();
+        columnNames = Player.getProfileCareerAttributes();
+        attributeTypes = Player.getProfileCareerAttributeType();
         setTable();
     }
 
     public void setTable() {
-        getPlayerYears();
+        getPlayerTable();
         setColumns();
         setPlayerData();
     }
 
-    private void getPlayerYears() {
-        ArrayList<Integer> validYears = new ArrayList<>();
+    private void getPlayerTable() {
+        ArrayList<Player> careerTotals = new ArrayList<>();
         try {
-            validYears = WebScrape.getValidYears();
-            for (int year : validYears) {
-                ArrayList<Player> yearList = WebScrape.createPlayerList(year);
-                for (Player p : yearList) {
-                    if (this.player.getID().equals(p.getID())) {
-                        playerYears.add(p);
-                        break;
-                    }
-                }
-            }
+            ArrayList<Integer> validYears = WebScrape.getValidYears();
+            careerTotals = WebScrape.careerTotals(validYears.get(0), validYears.get(validYears.size()-1));
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        for (Player p : careerTotals) {
+            if (this.player.getID().equals(p.getID())) {
+                playerTable.add(p);
+                break;
+            }
         }
     }
 
@@ -72,8 +71,8 @@ public class PlayerProfileTable extends TableView<Player> {
     }
     // grab each relevant player attribute and add it to the table under the correct column
     public void setPlayerData() {
-        for (int i = playerYears.size()-1; i >= 0; i--) {
-            this.getItems().add(playerYears.get(i));
+        for (int i = playerTable.size()-1; i >= 0; i--) {
+            this.getItems().add(playerTable.get(i));
         }
     }
 }
