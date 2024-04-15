@@ -1,5 +1,8 @@
 edu/guilford/HomePageController$2.class
+<<<<<<< HEAD
 edu/guilford/PlayerCareerTable.class
+=======
+>>>>>>> 7a586ad447bfbf81a2928ee03ee025575106982b
 edu/guilford/PlayerProfilePageController.class
 edu/guilford/PlayerProfileTable.class
 edu/guilford/PlayerSearchPageController.class
