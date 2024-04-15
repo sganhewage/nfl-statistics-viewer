@@ -37,22 +37,19 @@
                   <Font name="Sinhala MN" size="38.0" />
                </font>
             </Label>
-            <HBox alignment="CENTER" prefHeight="30.0" prefWidth="365.0">
+            <HBox alignment="CENTER" prefHeight="30.0" prefWidth="365.0" spacing="10.0">
                <children>
-                  <RadioButton fx:id="yearRButton" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#handleToggleGroup" prefHeight="37.0" prefWidth="100.0" selected="true" text="Select Year">
+                  <RadioButton fx:id="yearRButton" mnemonicParsing="false" onAction="#handleToggleGroup" prefHeight="37.0" prefWidth="100.0" selected="true" text="Select Year">
                      <HBox.margin>
-                        <Insets left="10.0" right="10.0" />
+                        <Insets />
                      </HBox.margin>
                      <toggleGroup>
                         <ToggleGroup fx:id="listTypeGroup" />
                      </toggleGroup>
-                     <padding>
-                        <Insets top="10.0" />
-                     </padding>
                   </RadioButton>
-                  <RadioButton fx:id="yearRangeRButton" mnemonicParsing="false" onAction="#handleToggleGroup" prefHeight="31.0" prefWidth="133.0" text="Select Year Range" toggleGroup="$listTypeGroup">
+                  <RadioButton fx:id="yearRangeRButton" mnemonicParsing="false" onAction="#handleToggleGroup" prefHeight="22.0" prefWidth="137.0" text="Select Year Range" toggleGroup="$listTypeGroup">
                      <HBox.margin>
-                        <Insets left="10.0" right="10.0" />
+                        <Insets />
                      </HBox.margin>
                   </RadioButton>
                </children>
