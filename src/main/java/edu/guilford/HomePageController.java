@@ -10,6 +10,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
+
+/**
+ * This class is the controller for the home page of the NFL Statistics Application.
+ * @author Sandith Ganhewage
+ * @version 1.0 4-16-24
+ */
 public class HomePageController {
 
     private long fadeTime = 500; // milliseconds

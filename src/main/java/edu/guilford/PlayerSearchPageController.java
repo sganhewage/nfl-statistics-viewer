@@ -13,19 +13,16 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
+/**
+ * This class is the controller for the player search page. It is responsible for handling the search bar, filters, and
+ * displaying the search results. It also allows the user to navigate to the player profile page by clicking on a player.
+ * @author Sandith Ganhewage
+ * @version 1.0
+ */
 public class PlayerSearchPageController {
     private static ArrayList<Integer> validYears;
     private static ArrayList<Player> allPlayers;
     private static ArrayList<Player> searchPlayers;
-
-    public PlayerSearchPageController() {
-        try {
-            validYears = WebScrape.getValidYears();
-            allPlayers = WebScrape.careerTotals(validYears.get(0), validYears.get(validYears.size() - 1));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     @FXML
     private TextField searchBar;
@@ -68,6 +65,13 @@ public class PlayerSearchPageController {
 
     @FXML
     private void initialize() {
+        try {
+            validYears = WebScrape.getValidYears();
+            allPlayers = WebScrape.careerTotals(validYears.get(0), validYears.get(validYears.size() - 1));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         searchResults.setOnMouseClicked(e -> {
             getPlayerSelected();
         });

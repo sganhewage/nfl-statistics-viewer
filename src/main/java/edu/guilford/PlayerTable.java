@@ -7,12 +7,23 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+/**
+ * This class creates a TableView object that displays the players with data in a season.
+ * It is used in the SeasonStatsPageController class to create a Table for each season.
+ * @author Sandith Ganhewage
+ * @version 1.0
+ * @see SeasonStatsPageController 
+ */
 public class PlayerTable extends TableView<Player> {
     private ArrayList<Player> players;
     private String[] columnNames;
     private String[] attributeTypes;
     public static int initYear = 2023;
 
+    /**
+     * Constructor for the PlayerTable class. Generates a table based on the initYear variable.
+     * @throws IOException
+     */
     public PlayerTable() throws IOException {
         super();
         this.players = WebScrape.createPlayerList(initYear);
@@ -22,6 +33,11 @@ public class PlayerTable extends TableView<Player> {
         setTable();
     }
     
+    /**
+     * Constructor for the PlayerTable class. Generates a table based on an ArrayList of Players passed in.
+     * @param players ArrayList of the players whose statistics will be displayed in the table.
+     * @param isRange A boolean that determines if the table is for a range of years or a single year.
+     */
     public PlayerTable(ArrayList<Player> players, boolean isRange) {
         super();
         this.players = players;
@@ -35,11 +51,18 @@ public class PlayerTable extends TableView<Player> {
         setTable();
     }
 
+    /**
+     * This method calls the necessary methods to set the table with the proper columns and data.
+     */
     public void setTable() {
         setColumns();
         setPlayerData();
     }
 
+    /**
+     * This method sets the list of players that will be displayed in the table.
+     * @param players ArrayList of the players whose statistics will be displayed in the table.
+     */
     public void setPlayerList(ArrayList<Player> players) {
         this.players = players;
     }
@@ -67,7 +90,7 @@ public class PlayerTable extends TableView<Player> {
         }
     }
     // grab each relevant player attribute and add it to the table under the correct column
-    public void setPlayerData() {
+    private void setPlayerData() {
         for (Player player : players) {
             this.getItems().add(player);
         }

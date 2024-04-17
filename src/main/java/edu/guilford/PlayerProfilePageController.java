@@ -3,7 +3,6 @@ package edu.guilford;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javafx.beans.binding.DoubleBinding;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -12,6 +11,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+/**
+ * This class is the controller for the player profile page. It is responsible for displaying the player's profile,
+ * including setting the title, image, player data, and instatiates the two tables included on this page.
+ * @author Sandith Ganhewage
+ * @version 1.0
+ */
 public class PlayerProfilePageController {
     protected static String previousPage = null;
     protected static Player player = null;
@@ -67,8 +72,6 @@ public class PlayerProfilePageController {
 
     @FXML
     private void initialize() throws IOException, InterruptedException {
-        player = WebScrape.createPlayerList(2022).get(100);
-
         title.setText(player.getName());
         try {
             Image img = WebScrape.playerProfileImage(player.getID());

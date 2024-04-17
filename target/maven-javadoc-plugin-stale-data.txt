@@ -1,0 +1,52 @@
+@options
+@packages
+@argfile
+--class-path
+'/Users/sandith/.m2/repository/org/openjfx/javafx-controls/21/javafx-controls-21.jar:/Users/sandith/.m2/repository/org/openjfx/javafx-graphics/21/javafx-graphics-21.jar:/Users/sandith/.m2/repository/org/openjfx/javafx-base/21/javafx-base-21.jar:/Users/sandith/.m2/repository/org/openjfx/javafx-fxml/21/javafx-fxml-21.jar'
+--module-path
+'/Users/sandith/Coding/CTIS310/FinalProject/ctis310finalproject/target/classes:/Users/sandith/.m2/repository/org/openjfx/javafx-graphics/21/javafx-graphics-21-mac-aarch64.jar:/Users/sandith/.m2/repository/org/openjfx/javafx-base/21/javafx-base-21-mac-aarch64.jar:/Users/sandith/.m2/repository/org/openjfx/javafx-fxml/21/javafx-fxml-21-mac-aarch64.jar:/Users/sandith/.m2/repository/org/openjfx/javafx-controls/21/javafx-controls-21-mac-aarch64.jar:/Users/sandith/.m2/repository/org/jsoup/jsoup/1.17.1/jsoup-1.17.1.jar'
+--patch-module
+edu.guilford='/Users/sandith/Coding/CTIS310/FinalProject/ctis310finalproject/src/main/java'
+-encoding
+'UTF-8'
+-protected
+-source
+'20'
+--module-source-path
+'/Users/sandith/Coding/CTIS310/FinalProject/ctis310finalproject/target/site/apidocs/src'
+-author
+-bottom
+'Copyright &#169; 2024. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/Users/sandith/Coding/CTIS310/FinalProject/ctis310finalproject/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'ctis310finalproject 1.0-SNAPSHOT API'
+-use
+-version
+-windowtitle
+'ctis310finalproject 1.0-SNAPSHOT API'
+edu.guilford
+'/Users/sandith/Coding/CTIS310/FinalProject/ctis310finalproject/src/main/java/module-info.java'
+/Users/sandith/Coding/CTIS310/FinalProject/ctis310finalproject/target/site/apidocs/tag-search-index.js = 1713329219186
+/Users/sandith/Coding/CTIS310/FinalProject/ctis310finalproject/target/site/apidocs/overview-tree.html = 1713329219176
+/Users/sandith/Coding/CTIS310/FinalProject/ctis310finalproject/target/site/apidocs/module-search-index.js = 1713329219186
+/Users/sandith/Coding/CTIS310/FinalProject/ctis310finalproject/target/site/apidocs/index.html = 1713329219195
+/Users/sandith/Coding/CTIS310/FinalProject/ctis310finalproject/target/site/apidocs/package-search-index.js = 1713329219186
+/Users/sandith/Coding/CTIS310/FinalProject/ctis310finalproject/target/site/apidocs/serialized-form.html = 1713329219165
+/Users/sandith/Coding/CTIS310/FinalProject/ctis310finalproject/target/site/apidocs/index-all.html = 1713329219193
+/Users/sandith/Coding/CTIS310/FinalProject/ctis310finalproject/target/site/apidocs/allpackages-index.html = 1713329219185
+/Users/sandith/Coding/CTIS310/FinalProject/ctis310finalproject/target/site/apidocs/member-search-index.js = 1713329219186
+/Users/sandith/Coding/CTIS310/FinalProject/ctis310finalproject/target/site/apidocs/copy.svg = 1713329219199
+/Users/sandith/Coding/CTIS310/FinalProject/ctis310finalproject/target/site/apidocs/script.js = 1713329219198
+/Users/sandith/Coding/CTIS310/FinalProject/ctis310finalproject/target/site/apidocs/stylesheet.css = 1713329219198
+/Users/sandith/Coding/CTIS310/FinalProject/ctis310finalproject/target/site/apidocs/search-page.js = 1713329219199
+/Users/sandith/Coding/CTIS310/FinalProject/ctis310finalproject/target/site/apidocs/help-doc.html = 1713329219197
+/Users/sandith/Coding/CTIS310/FinalProject/ctis310finalproject/target/site/apidocs/element-list = 1713329219145
+/Users/sandith/Coding/CTIS310/FinalProject/ctis310finalproject/target/site/apidocs/search.html = 1713329219195
+/Users/sandith/Coding/CTIS310/FinalProject/ctis310finalproject/target/site/apidocs/allclasses-index.html = 1713329219185
+/Users/sandith/Coding/CTIS310/FinalProject/ctis310finalproject/target/site/apidocs/type-search-index.js = 1713329219186
+/Users/sandith/Coding/CTIS310/FinalProject/ctis310finalproject/target/site/apidocs/search.js = 1713329219199

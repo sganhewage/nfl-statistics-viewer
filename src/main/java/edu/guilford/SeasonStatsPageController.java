@@ -22,6 +22,12 @@ import java.util.HashMap;
 
 import edu.guilford.WebScrape.InvalidYearException;
 
+/**
+ * This class controls the Seasons Statistics Page. It is responsible for displaying the player data for a given season,
+ * and provides controls to alter the data displayed.
+ * @author Sandith Ganhewage
+ * @version 1.0
+ */
 public class SeasonStatsPageController {
     private int listYear = PlayerTable.initYear;
     private ArrayList<Player> players;
@@ -36,10 +42,6 @@ public class SeasonStatsPageController {
 
     @FXML
     private ScrollPane scrollPane;
-
-    public SeasonStatsPageController() throws IOException {
-        players = WebScrape.createPlayerList(listYear);
-    }
 
     @FXML
     private VBox tableRoot;
@@ -124,6 +126,7 @@ public class SeasonStatsPageController {
 
     @FXML
     private void initialize() throws IOException {
+        players = WebScrape.createPlayerList(listYear);
         updatePlayerTable(false);
         handleToggleGroup();
         fadeIn();

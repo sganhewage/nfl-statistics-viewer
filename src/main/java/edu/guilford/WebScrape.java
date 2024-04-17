@@ -24,10 +24,35 @@ import org.jsoup.select.*;
 
 import javafx.scene.image.Image;
 
+/**
+ * This class is responsible for web scraping player data from the Pro Football Reference website. There are various
+ * functions that are used to scrape player data, including career totals, player names, and player images. All of the information
+ * that is scraped is also stored in files to limit requests made to the website. The class also contains functions to search
+ * for players by name, and to convert between team abbreivations and team names.
+ * @author Sandith Ganhewage
+ * @version 1.0
+ */
 public class WebScrape {
+    /**
+     * This variable defines the amount of time that must pass for an eligible file to be replaced.
+     */
     final static int FILE_REFRESH_TIME = 5; //hours
+
+    /**
+     * This variable determines whether or not to update old lists. If set to true, the program will update old lists
+     * according to the FILE_REFRESH_TIME variable. If set to false, the program will not update old lists.
+     * @see FILE_REFRESH_TIME
+     */
     final static boolean UPDATE_OLD_LISTS = false;
 
+    /**
+     * This function is used to search for a player by name. It takes in an ArrayList of players and a string input, and returns
+     * an ArrayList of players that match the search term.
+     * @param playerList The ArrayList of players to search through.
+     * @param input The search term to look for in the player names.
+     * @return An ArrayList of players that match the search term.
+     * @throws IOException
+     */
     static ArrayList<Player> nameSearch(ArrayList<Player> playerList, String input) throws IOException {
         ArrayList<Player> searchResults = new ArrayList<Player>();
         String searchTerm = new String(input).toLowerCase().replaceAll(" ","");
@@ -40,7 +65,15 @@ public class WebScrape {
         return searchResults;
     }
 
-    //@SuppressWarnings("unused")
+    /**
+     * This method takes a start year and an end year, and returns the totals of the statistics for the players
+     * over the range of years. It uses the createPlayerList method to gather the player data for each year in the range,
+     * and then combines the data.
+     * @param startYear The start year of the range of years to search.
+     * @param endYear The end year of the range of years to search.
+     * @return An ArrayList of Player objects containing the totals of the statistics for the players over the range of years.
+     * @throws IOException
+     */
     static ArrayList<Player> careerTotals(int startYear, int endYear) throws IOException {
         //create an array of years to search
         int[] yearsArray = IntStream.rangeClosed(startYear, endYear).toArray();
@@ -155,6 +188,13 @@ public class WebScrape {
         return careerList;
     }
 
+    /**
+     * This method takes a player code (the player's ID) and returns an image of the player.
+     * The method first checks if the image is stored in the files, and if not, it scrapes the image from the website.
+     * @param playerCode The player's Pro Football Reference ID
+     * @return Image of the player
+     * @throws IOException
+     */
     static Image playerProfileImage(String playerCode) throws IOException {
         String imgFilePath = NFLStatisticsViewer.class.getResource("PlayerImages/").getPath();
         imgFilePath = imgFilePath + playerCode + ".jpeg";
@@ -198,6 +238,11 @@ public class WebScrape {
         return img;
     }
 
+    /**
+     * This method returns an ArrayList of valid years to search for player data. The years are from 1992 to the current year.
+     * @return An ArrayList of valid years to search for player data.
+     * @throws IOException
+     */
     static ArrayList<Integer> getValidYears() throws IOException {
         ArrayList<Integer> yearList = new ArrayList<Integer>();
 
@@ -218,6 +263,13 @@ public class WebScrape {
         return yearList;
     }
 
+    /**
+     * This method creates an ArrayList of Player objects for a given year. It first checks if the data is stored in a file,
+     * if not it scrapes the data from the website.
+     * @param year The year for which the player list is to be created.
+     * @return An ArrayList of Player objects for the given year.
+     * @throws IOException
+     */
     @SuppressWarnings("unchecked")
     static ArrayList<Player> createPlayerList(int year) throws IOException {
         if (!getValidYears().contains(year)) {
@@ -444,7 +496,11 @@ public class WebScrape {
         return players;
     }
     
-    //Hashmap to convert between team names and abbreviations
+    /**
+     * This method takes a HashMap and adds the abbreviations and names to the HashMap.
+     * This Hashmap accepts an abbreviation and returns the team name.
+     * @param teamAbbreviations HashMap to add team abbreviations and team names
+     */
     public static void teamAbbreviationtoName(HashMap<String, String> teamAbbreviations) {
         teamAbbreviations.put("ARI", "Arizona Cardinals");
         teamAbbreviations.put("ATL", "Atlanta Falcons");
@@ -489,7 +545,11 @@ public class WebScrape {
         teamAbbreviations.put("4TM", "4 Different Teams");
     }
 
-    // create a reverse hashmap to convert between team names and abbreviations
+    /**
+     * This method takes a HashMap and adds the abbreviations and names to the HashMap.
+     * This Hashmap accepts a name and returns the team abbreviation.
+     * @param teamAbbreviations HashMap to add team abbreviations and team names
+     */
     public static void teamNametoAbbreviation(HashMap<String, String> teamAbbreviations) {
         teamAbbreviations.put("Arizona Cardinals", "ARI");
         teamAbbreviations.put("Atlanta Falcons", "ATL");
@@ -534,6 +594,15 @@ public class WebScrape {
         teamAbbreviations.put("4 Different Teams", "4TM");
     }
 
+    /**
+     * This method is used to get information specific to the player that is passed in to the
+     * PlayerProfilePageController. It will return an ArrayList of Strings that will be used to
+     * populate the PlayerProfilePageController.
+     * @param player The Player object to gather information from
+     * @return ArrayList of Strings that contains various pieces of player information such as name, position, team, height, weight, etc.
+     * @throws IOException
+     * @throws InterruptedException
+     */
     @SuppressWarnings("unchecked")
     public static ArrayList<String> getPlayerInfo(Player player) throws IOException, InterruptedException {
         String playerCode = player.getID();
@@ -623,6 +692,9 @@ public class WebScrape {
         return playerInfoList;
     }
 
+    /**
+     * This exception class is used to throw an exception when a year is requested that is not available.
+     */
     public static class InvalidYearException extends RuntimeException {
         public InvalidYearException(String message) {
             super(message);

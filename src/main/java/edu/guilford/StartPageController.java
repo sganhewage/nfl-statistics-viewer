@@ -16,8 +16,13 @@ import javafx.util.Duration;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+/**
+ * This class is the controller for the start page. It is responsible for handling the start button and quit button
+ * functionality, as well as the animation of the team logos on the ribbons.
+ * @author Sandith Ganhewage
+ * @version 1.0
+ */
 public class StartPageController {
-
     private long fadeTime = 500; // milliseconds
     private long pinWheelSpeed = 10; // millis between movements
 
