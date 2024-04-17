@@ -51,7 +51,7 @@ public class WebScrape {
         if (UPDATE_OLD_LISTS) {
             int refreshFileQuant = 0;
             for (int year : yearsArray) {
-                String yearListFileLoc = App.class.getResource("yearLists/").getPath();
+                String yearListFileLoc = NFLStatisticsViewer.class.getResource("yearLists/").getPath();
                 yearListFileLoc = yearListFileLoc + year + "List.ser";
                 File tmpDir = new File(yearListFileLoc);
                 
@@ -156,10 +156,10 @@ public class WebScrape {
     }
 
     static Image playerProfileImage(String playerCode) throws IOException {
-        String imgFilePath = App.class.getResource("PlayerImages/").getPath();
+        String imgFilePath = NFLStatisticsViewer.class.getResource("PlayerImages/").getPath();
         imgFilePath = imgFilePath + playerCode + ".jpeg";
         File tempDirectory = new File(imgFilePath);
-        Image img = new Image(App.class.getResourceAsStream("imageUnavailable.png"));
+        Image img = new Image(NFLStatisticsViewer.class.getResourceAsStream("imageUnavailable.png"));
 
         if (tempDirectory.exists()) {
             System.out.println("Player pulled from files");
@@ -191,7 +191,7 @@ public class WebScrape {
                 }
                 }   
             } catch (HttpStatusException e) {
-                img = new Image(App.class.getResourceAsStream("imageUnavailable.png"));
+                img = new Image(NFLStatisticsViewer.class.getResourceAsStream("imageUnavailable.png"));
                 System.out.println("Image Unavailable (429 Status Error)");
             }    
         } 
@@ -227,7 +227,7 @@ public class WebScrape {
         ArrayList<Player> players = new ArrayList<Player>();
         ArrayList<Player> filePlayers = new ArrayList<Player>();
 
-        String yearListFileLoc = App.class.getResource("yearLists/").getPath();
+        String yearListFileLoc = NFLStatisticsViewer.class.getResource("yearLists/").getPath();
         yearListFileLoc = yearListFileLoc + year + "List.ser";
         File tmpDir = new File(yearListFileLoc);
 
@@ -537,7 +537,7 @@ public class WebScrape {
     @SuppressWarnings("unchecked")
     public static ArrayList<String> getPlayerInfo(Player player) throws IOException, InterruptedException {
         String playerCode = player.getID();
-        String playerInfoFileLoc = App.class.getResource("PlayerInfo/").getPath();
+        String playerInfoFileLoc = NFLStatisticsViewer.class.getResource("PlayerInfo/").getPath();
         playerInfoFileLoc = playerInfoFileLoc + playerCode + "Info.ser";
         File tmpDir = new File(playerInfoFileLoc);
 

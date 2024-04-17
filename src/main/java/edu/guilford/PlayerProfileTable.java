@@ -13,11 +13,14 @@ public class PlayerProfileTable extends TableView<Player> {
     private String[] columnNames;
     private String[] attributeTypes;
 
+    private int rowHeight = 40;
+
     public PlayerProfileTable(Player player) throws IOException {
         super();
         this.player = player;
         columnNames = Player.getProfileAttributes();
         attributeTypes = Player.getProfileAttributeType();
+        this.setFixedCellSize(rowHeight);
         setTable();
     }
 

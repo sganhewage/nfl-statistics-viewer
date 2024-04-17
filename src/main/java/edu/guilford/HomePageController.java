@@ -12,7 +12,7 @@ import javafx.util.Duration;
 
 public class HomePageController {
 
-    private long fadeTime = 1000; // milliseconds
+    private long fadeTime = 500; // milliseconds
 
     @FXML
     private ImageView logo;
@@ -46,7 +46,7 @@ public class HomePageController {
             public void run() {
                 try {
                     Thread.sleep(fadeTime);
-                    App.setRoot("startPage");
+                    NFLStatisticsViewer.setRoot("startPage");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
@@ -64,7 +64,7 @@ public class HomePageController {
             public void run() {
                 try {
                     Thread.sleep(fadeTime);
-                    App.setRoot("seasonStatsPage");
+                    NFLStatisticsViewer.setRoot("seasonStatsPage");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
@@ -82,7 +82,7 @@ public class HomePageController {
             public void run() {
                 try {
                     Thread.sleep(fadeTime);
-                    App.setRoot("playerSearchPage");
+                    NFLStatisticsViewer.setRoot("playerSearchPage");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (IOException e) {

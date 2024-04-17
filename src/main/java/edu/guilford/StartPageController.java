@@ -18,7 +18,7 @@ import javafx.scene.layout.VBox;
 
 public class StartPageController {
 
-    private long fadeTime = 1000; // milliseconds
+    private long fadeTime = 500; // milliseconds
     private long pinWheelSpeed = 10; // millis between movements
 
     @FXML
@@ -56,7 +56,7 @@ public class StartPageController {
         int imageWidth = 120;
         int imageSpread = 150;
         int spacing = 2;
-        String teamLogosFolderLoc = App.class.getResource("NFLTeamLogos/").getPath();
+        String teamLogosFolderLoc = NFLStatisticsViewer.class.getResource("NFLTeamLogos/").getPath();
         File[] files = new File(teamLogosFolderLoc).listFiles();
         ArrayList<ImageView> teamLogos = new ArrayList<ImageView>();
         for (File file : files) {
@@ -101,7 +101,7 @@ public class StartPageController {
             public void run() {
                 try {
                     Thread.sleep(fadeTime);
-                    App.setRoot("homePage");
+                    NFLStatisticsViewer.setRoot("homePage");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (IOException e) {

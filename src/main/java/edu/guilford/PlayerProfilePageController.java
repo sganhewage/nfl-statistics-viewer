@@ -3,6 +3,7 @@ package edu.guilford;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javafx.beans.binding.DoubleBinding;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -66,6 +67,8 @@ public class PlayerProfilePageController {
 
     @FXML
     private void initialize() throws IOException, InterruptedException {
+        player = WebScrape.createPlayerList(2022).get(100);
+
         title.setText(player.getName());
         try {
             Image img = WebScrape.playerProfileImage(player.getID());
@@ -112,17 +115,22 @@ public class PlayerProfilePageController {
         }
         tableRoot.getChildren().clear();
         tableRoot.getChildren().add(playerTable);
+
         playerTable.prefWidthProperty().bind(tableRoot.widthProperty());
-        tableRoot.setMaxHeight(playerTable.getPrefHeight());
+        
+        int scrollBarHeight = 12;
+        int tableHeight = ((int) playerTable.getFixedCellSize() * (playerTable.getItems().size()+1)) + scrollBarHeight;
+        System.out.println("table height: " + tableHeight);
+        playerTable.setPrefHeight(tableHeight);
     }
 
     @FXML
     private void handleSearchButton() throws IOException {
-        App.setRoot("playerSearchPage");
+        NFLStatisticsViewer.setRoot("playerSearchPage");
     }
 
     @FXML
     private void handleBackButton() throws IOException {
-        App.setRoot(previousPage);
+        NFLStatisticsViewer.setRoot(previousPage);
     }
 }

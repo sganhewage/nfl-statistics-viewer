@@ -56,6 +56,9 @@
                <padding>
                   <Insets left="10.0" right="10.0" />
                </padding>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
             </HBox>
             <VBox fx:id="yearVBox">
                <children>
@@ -64,7 +67,7 @@
                         <Font name="Sinhala Sangam MN" size="23.0" />
                      </font>
                      <VBox.margin>
-                        <Insets top="15.0" />
+                        <Insets top="5.0" />
                      </VBox.margin>
                   </Label>
                   <TextField fx:id="yearField" alignment="CENTER" centerShape="false" onAction="#getYear" prefHeight="36.0" prefWidth="311.0" promptText="Select Year">
@@ -117,7 +120,7 @@
                         <Font name="Sinhala Sangam MN" size="23.0" />
                      </font>
                      <VBox.margin>
-                        <Insets bottom="10.0" top="10.0" />
+                        <Insets top="20.0" />
                      </VBox.margin>
                   </Label>
                   <GridPane alignment="CENTER" hgap="10.0" vgap="20.0">
@@ -131,15 +134,21 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="143.0" text="Start Year">
+                        <Label alignment="BOTTOM_CENTER" prefHeight="18.0" prefWidth="143.0" text="Start Year">
                            <font>
                               <Font name="Sinhala Sangam MN" size="16.0" />
                            </font>
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
                         </Label>
-                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="143.0" text="End Year" GridPane.columnIndex="1">
+                        <Label alignment="BOTTOM_CENTER" prefHeight="18.0" prefWidth="143.0" text="End Year" GridPane.columnIndex="1">
                            <font>
                               <Font name="Sinhala Sangam MN" size="16.0" />
                            </font>
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
                         </Label>
                         <TextField fx:id="startYearField" prefHeight="39.0" prefWidth="148.0" promptText="Enter Start Year" GridPane.rowIndex="1">
                            <font>
@@ -158,7 +167,7 @@
                         </Button>
                      </children>
                      <padding>
-                        <Insets bottom="15.0" left="15.0" right="15.0" />
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                      </padding>
                   </GridPane>
                   <Label fx:id="yearFieldWarning1" alignment="CENTER" prefHeight="20.0" prefWidth="366.0" text="Please Select Valid Year" textFill="#b02323" visible="false">

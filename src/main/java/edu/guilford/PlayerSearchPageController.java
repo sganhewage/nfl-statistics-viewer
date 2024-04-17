@@ -181,7 +181,7 @@ public class PlayerSearchPageController {
         PlayerProfilePageController.player = searchPlayers.get(selectedPlayerIndex);
         PlayerProfilePageController.previousPage = "playerSearchPage";
         try {
-            App.setRoot("playerProfilePage");
+            NFLStatisticsViewer.setRoot("playerProfilePage");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -207,6 +207,6 @@ public class PlayerSearchPageController {
 
     @FXML
     private void handleBackButton() throws IOException {
-        App.setRoot("homePage");
+        NFLStatisticsViewer.setRoot("homePage");
     }
 }

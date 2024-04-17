@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import javafx.util.StringConverter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -130,7 +131,7 @@ public class SeasonStatsPageController {
 
     @FXML
     private void handleBackButton() throws IOException {
-        App.setRoot("homePage");
+        NFLStatisticsViewer.setRoot("homePage");
     }
 
     @FXML
@@ -167,6 +168,17 @@ public class SeasonStatsPageController {
 
         yearSlider.setMin(validYears.get(0));
         yearSlider.setMax(validYears.get(validYears.size()-1));
+        yearSlider.setLabelFormatter(new StringConverter<Double>() {
+            @Override
+            public String toString(Double object) {
+                return object.toString().replace(".0", "");
+            }
+
+            @Override
+            public Double fromString(String string) {
+                return Double.parseDouble(string);
+            }
+        });
 
         if (listYear == validYears.get(0)) {
             previousYearButton.setDisable(true);
@@ -306,6 +318,6 @@ public class SeasonStatsPageController {
     private void switchToPlayerProfilePage() throws IOException {
         PlayerProfilePageController.player = playerTable.getSelectionModel().getSelectedItem();
         PlayerProfilePageController.previousPage = "seasonStatsPage";
-        App.setRoot("playerProfilePage");
+        NFLStatisticsViewer.setRoot("playerProfilePage");
     }
 }

@@ -11,17 +11,17 @@ import java.io.IOException;
 /**
  * JavaFX App
  */
-public class App extends Application {
+public class NFLStatisticsViewer extends Application {
     private static Scene scene;
 
     private int sceneWidth = 1280;
     private int sceneHeight = 720;
     
-    private static String styleSheet = App.class.getResource("primer-dark.css").toExternalForm();
+    private static String styleSheet = NFLStatisticsViewer.class.getResource("primer-dark.css").toExternalForm();
 
     @Override
     public void start(@SuppressWarnings("exports") Stage stage) throws IOException {
-        scene = new Scene(loadFXML("startPage"), sceneWidth, sceneHeight);
+        scene = new Scene(loadFXML("playerProfilePage"), sceneWidth, sceneHeight);
         scene.getStylesheets().add(styleSheet);
 
         stage.setScene(scene);
@@ -33,7 +33,7 @@ public class App extends Application {
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(NFLStatisticsViewer.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
 
