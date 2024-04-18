@@ -19,7 +19,7 @@ Here are the following pages that can be accessed in the application:
 There will be descriptions of each page of the application below.
 
 #### Start Page
-![Start Page](GUISampleImages/startPage.png)
+![Start Page](GUISampleImages/startPageAnimation.gif)
 The start page of the application simply includes a decorative animation along with two options. 
 - **Quit App** will end the program via `System.exit(0)`. 
 - **Start App** will open to the [home page](#home-page) of the application.
