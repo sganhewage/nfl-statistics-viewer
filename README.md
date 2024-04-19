@@ -8,6 +8,10 @@ There are several core features of this application.
 - View headshots of the players with available images
 - View summaries of a single player, including all career statistics and extra information (when available)
 
+#### Note on Runtime Exceptions
+- In my testing, I ran into a few exceptions from JavaFX, however, after a closer look, they didn't originate from my code. I wasn't able to solve these exceptions, but they don't affect the program, and only seem to appear when switching pages.
+- If for some reason a 429 error occurs, it is likely due to the Pro Football Reference website's rate limiting. I have provided [Sample Data](/SampleData/) in case of this. Use the folders in this directory to replace the corresponding folders in the program resources to use this Sample Data in the program.
+
 ### Application Pages
 Here are the following pages that can be accessed in the application:
 - [Start Page](#start-page)
